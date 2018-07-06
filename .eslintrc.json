@@ -1,7 +1,12 @@
 {
+  "extends": "fullstack",
   "root": true,
-  "extends": ["fullstack", "prettier", "prettier/react"],
   "rules": {
-    "semi": 0
-  }
+    "semi": [1, "always"],
+    "react/button-has-type": [0],
+    "react/no-access-state-in-setstate": [0],
+    "react/no-this-in-sfc": [0],
+    "react/jsx-child-element-spacing": [0],
+    "react/jsx-max-depth": [0]
+}
 }
