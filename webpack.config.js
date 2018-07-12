@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
@@ -8,7 +8,7 @@ module.exports = {
   ],
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: './public/bundle.js',
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -20,7 +20,23 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+             loader: 'style-loader',
+          },
+          {
+             loader: 'css-loader',
+             options: {
+                sourceMap: true,
+                modules: true,
+                localIdentName: '[local]___[hash:base64:5]'
+               }
+          }
+          ],
       }
-    ]
+    ],
   }
-}
+};

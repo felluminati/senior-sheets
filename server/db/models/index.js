@@ -11,7 +11,9 @@ GraceShopper.belongsTo(Cohort);
 GraceShopper.hasMany(Feedback);
 Capstone.hasMany(Feedback);
 Feedback.belongsToMany(Capstone, {through: 'capstone_feedback'});
+Capstone.belongsToMany(Feedback, {through: 'capstone_feedback'});
 Feedback.belongsToMany(GraceShopper,  {through: 'graceshopper_feedback'});
+GraceShopper.belongsToMany(Feedback,  {through: 'graceshopper_feedback'});
 
 
 module.exports = {

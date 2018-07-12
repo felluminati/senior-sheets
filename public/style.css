@@ -1,9 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #33383c;
 }
 
 a {
   text-decoration: none;
+  color: #33383c;
+  letter-spacing: .1rem;
 }
 
 label {
