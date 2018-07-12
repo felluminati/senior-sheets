@@ -16,8 +16,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav className={style.navbar__right}>
       {isLoggedIn ? (
         <div>
-          <Link to="/home">Grace Shopper</Link>
-          <Link to="/home">Capstone</Link>
+          <Link to="/graceshopper">Grace Shopper</Link>
+          <Link to="/capstone">Capstone</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>

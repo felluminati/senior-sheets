@@ -6,4 +6,5 @@
 export {default as Navbar} from './navbar';
 export {default as UserHome} from './user-home';
 export {Login, Signup} from './auth-form';
-export {default as Main} from './main';
+export {default as SelectTeam} from './select-team/select-team';
+export {default as ProjectForm} from './project-form/project-form';
