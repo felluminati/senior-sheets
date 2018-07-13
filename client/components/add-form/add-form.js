@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {postCohort} from '../../store';
+import {postCohort, postTeam} from '../../store';
 
 
 class AddForm extends Component {
@@ -15,8 +15,12 @@ class AddForm extends Component {
 
   handleSubmit = () => {
     if (!this.state.input) return;
-    this.props.addNewCohort(this.state.input);
-    this.props.showAddForm();
+    const {cohortId, project} = this.props;
+    const {input} = this.state;
+    project ?
+      this.props.addNewTeam(cohortId, project, input)
+      : this.props.addNewCohort(input);
+    this.props.toggleAddForm();
   }
 
   render () {
@@ -32,11 +36,16 @@ class AddForm extends Component {
 
 const mapState = (state) => ({
   cohorts: state.cohorts,
+  cohortId: state.selectedCohort.id,
   project: state.project,
+  teams: state.teams,
 });
 const mapDispatch = (dispatch) => ({
   addNewCohort: (name) => {
     dispatch(postCohort(name));
+  },
+  addNewTeam: (cohortId, project, name) => {
+    dispatch(postTeam(cohortId, project, name));
   }
 });
 

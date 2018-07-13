@@ -18,9 +18,9 @@ export const fetchTeams = (cohortId, project) => async dispatch => {
   }
 };
 
-export const postTeam = (cohortId, project, name) => async dispatch => {
+export const postTeam = (cohortId, project, teamName) => async dispatch => {
   try {
-    const {data} = await axios.post('/api/teams', {cohortId, project, name});
+    const {data} = await axios.post('/api/teams', {cohortId, project, teamName});
     dispatch(addTeam(data));
   }
   catch (err) {
@@ -33,7 +33,7 @@ export default function (state = initialState, action) {
     case GET_TEAMS:
       return action.teams;
     case ADD_TEAM:
-      return [...state.teams, action.team];
+      return [...state, action.team];
     default:
       return state;
   }

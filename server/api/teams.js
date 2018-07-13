@@ -26,9 +26,20 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {name} = req.body;
-    const newCohort = await Cohort.create({name});
-    res.json(newCohort);
+    const {teamName, project, cohortId} = req.body;
+    let team = null;
+    if (project === 'graceShopper') {
+      team = await GraceShopper.create({teamName, cohortId: +cohortId});
+    }
+    else if (project === 'capstone') {
+      team = await Capstone.create({teamName, cohortId: +cohortId});
+    }
+    else {
+      const err = new Error('Not Grace Shopper or Capstone!');
+      err.status = 404;
+      return next(err);
+    }
+    res.json(team);
   }
   catch (err) {
     next(err);
