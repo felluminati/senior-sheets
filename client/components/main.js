@@ -3,36 +3,26 @@ import {connect} from 'react-redux';
 import styles from './main.css';
 // import {} from '../store';
 import {AddForm, SelectCohort, ChooseProject, SelectTeam} from './index';
-import project from '../store/project';
 
 class Main extends Component {
   displayName = Main;
-  state = {
-    showAddForm: false,
-  }
-  showAddForm = () => {
-    this.setState({showAddForm: !this.state.showAddForm});
-  }
   render () {
     const {selectedCohort, project} = this.props;
     return (
       <div className={styles.main__container}>
         <div className={styles.main__card}>
           <div className={styles.main__title}>Select Cohort</div>
-          {!this.state.showAddForm ?
             <SelectCohort showAddForm={this.showAddForm} />
-          :
-            <AddForm showAddForm={this.showAddForm} />
-        }
-          {selectedCohort.id &&
+
+          {!!selectedCohort.id &&
           <div className={styles.main__choiceWrapper}>
             <div className={styles.main__title}>Select Project</div>
-                <ChooseProject />
+              <ChooseProject />
           </div>
           }
-          {project.length &&
+          {!!project.length &&
             <div className={styles.main__choiceWrapper}>
-            <div className={styles.main__title}>Select Team</div>
+              <div className={styles.main__title}>Select Team</div>
                 <SelectTeam showAddForm={this.showAddForm} />
             </div>
           }
@@ -46,6 +36,7 @@ const mapState = (state) => ({
   cohorts: state.cohorts,
   selectedCohort: state.selectedCohort,
   project: state.project,
+  teams: state.teams,
 });
 const mapDispatch = null;
 

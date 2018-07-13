@@ -14,6 +14,7 @@ class AddForm extends Component {
   }
 
   handleSubmit = () => {
+    if (!this.state.input) return;
     this.props.addNewCohort(this.state.input);
     this.props.showAddForm();
   }
@@ -23,7 +24,7 @@ class AddForm extends Component {
       <div className="main__selectOrAdd">
         <input autoFocus className="main__input" onChange={this.handleChange} value={this.state.input} />
         <button className="main__button" onClick={this.handleSubmit}>✓</button>
-        <button className="main__button main__addButton" onClick={this.props.showAddForm}>x</button>
+        <button className="main__button main__addButton" onClick={this.props.toggleAddForm}>x</button>
       </div>
     );
   }
@@ -31,6 +32,7 @@ class AddForm extends Component {
 
 const mapState = (state) => ({
   cohorts: state.cohorts,
+  project: state.project,
 });
 const mapDispatch = (dispatch) => ({
   addNewCohort: (name) => {

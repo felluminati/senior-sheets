@@ -17,7 +17,6 @@ router.get('/', async (req, res, next) => {
       err.status = 404;
       return next(err);
     }
-    console.log(teams);
     res.json(teams);
   }
   catch (err) {

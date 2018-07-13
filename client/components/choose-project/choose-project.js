@@ -5,19 +5,18 @@ import {selectProject} from '../../store';
 
 class ChooseProject extends Component {
   displayName = ChooseProject;
-  state = {
-  }
   render () {
     return (
       <div className={styles.chooseProject__container}>
         <button
         className={styles.chooseProject__button}
-        onClick={this.props.handleSelectProject}
+        onClick={this.props.handleSelect}
         name="graceShopper">
           Grace Shopper
         </button>
         <button
         className={`${styles.chooseProject__button} ${styles.redButton}`}
+        onClick={this.props.handleSelect}
         name="capstone">
           Capstone
         </button>
@@ -28,10 +27,11 @@ class ChooseProject extends Component {
 
 const mapState = (state) => ({
   cohorts: state.cohorts,
-  selectedCohort: {},
+  selectedCohort: state.cohort,
+  project: state.project,
 });
 const mapDispatch = (dispatch) => ({
-  handleSelectProject: (event) => {
+  handleSelect: (event) => {
     dispatch(selectProject(event.target.name));
   }
 });
