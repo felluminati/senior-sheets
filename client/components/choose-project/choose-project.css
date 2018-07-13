@@ -1,0 +1,26 @@
+
+.chooseProject__container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+
+.chooseProject__button {
+  width: 200px;
+  height: 35px;
+  margin: 0 .5rem;
+  border: 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
+  font-size: 1.1rem;
+  /* font-weight: 700; */
+  border-radius: 5px;
+  background-color: #33383c;
+  color: #ffffff;
+  padding: .05rem .2rem;
+}
+
+
+.redButton {
+  background-color: #e3262f;
+}

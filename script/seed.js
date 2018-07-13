@@ -1,19 +1,33 @@
 'use strict';
 
 const db = require('../server/db');
-const {User, Cohort} = require('../server/db/models');
+const {User, Cohort, GraceShopper, Capstone} = require('../server/db/models');
 
 async function seed() {
   await db.sync({force: true});
   console.log('db synced!');
 
-  await User.create({email: 'admin@email.com', password: 'F3lluminatie$'});
-  const cohorts = await Promise.all([
+  await User.create({email: 'admin@email.com', password: 'F3lluminaughtie$'});
+  await Promise.all([
     Cohort.create({name: 1806}),
     Cohort.create({name: 1808})
   ]);
-  console.log(`seeded ${cohorts.length} cohorts`);
-
+  await Promise.all([
+    GraceShopper.create({teamName: 'Sample Team 1', cohortId: 1}),
+    GraceShopper.create({teamName: 'Sample Team 2', cohortId: 1}),
+    GraceShopper.create({teamName: 'Sample Team 3', cohortId: 1}),
+    GraceShopper.create({teamName: 'Sample Team 1', cohortId: 2}),
+    GraceShopper.create({teamName: 'Sample Team 2', cohortId: 2}),
+    GraceShopper.create({teamName: 'Sample Team 3', cohortId: 2}),
+  ]);
+  await Promise.all([
+    Capstone.create({teamName: 'Sample Team 1', cohortId: 1}),
+    Capstone.create({teamName: 'Sample Team 2', cohortId: 1}),
+    Capstone.create({teamName: 'Sample Team 3', cohortId: 1}),
+    Capstone.create({teamName: 'Sample Team 1', cohortId: 2}),
+    Capstone.create({teamName: 'Sample Team 2', cohortId: 2}),
+    Capstone.create({teamName: 'Sample Team 3', cohortId: 2}),
+  ]);
   console.log(`seeded successfully`);
 }
 

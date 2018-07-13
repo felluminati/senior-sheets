@@ -1,7 +1,7 @@
 
 .navbar {
-  padding: .5rem 2rem;
-  background-color: #eeeeee;
+  padding: .5rem 1rem;
+  background-color: #ffffff;
   color: #33383c;
   display: flex;
   justify-content: flex-start;
@@ -17,7 +17,6 @@
 
 .navbar__title {
   font-size: 1.2rem;
-  /* font-weight: bold; */
   letter-spacing: .1rem;
 }
 
@@ -31,10 +30,23 @@
   justify-self: flex-start;
 }
 
-
 .navbar__right {
-  flex: 0 0 50%;
+  flex: 0 0 60%;
   text-align: right;
-  justify-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
 }
 
+.navbar__button {
+  text-align: center;
+  display: inline-block;
+  min-width: 50px;
+  border: 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
+  font-size: .8rem;
+  border-radius: 5px;
+  background-color: #33383c;
+  color: #ffffff;
+  padding: .4rem 1rem;
+}

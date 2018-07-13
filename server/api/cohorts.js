@@ -11,3 +11,14 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.post('/', async (req, res, next) => {
+  try {
+    const {name} = req.body;
+    const newCohort = await Cohort.create({name});
+    res.json(newCohort);
+  }
+  catch (err) {
+    next(err);
+  }
+});

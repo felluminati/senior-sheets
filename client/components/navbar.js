@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {logout} from '../store';
+import {SelectCohort} from './index';
 import style from './navbar.css';
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, user}) => (
   <div className={style.navbar}>
     <div className={style.navbar__left}>
       <img className={style.navbar__logo} src="/illuminati.png" />
@@ -16,16 +17,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav className={style.navbar__right}>
       {isLoggedIn ? (
         <div>
-          <Link to="/graceshopper">Grace Shopper</Link>
-          <Link to="/capstone">Capstone</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <span> {user.email} </span>
+          <a href="#" onClick={handleClick}><div className={style.navbar__button}>Logout</div></a>
         </div>
       ) : (
         <div>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/login"><div className={style.navbar__button}>Login</div></Link>
+          <Link to="/signup"><div className={style.navbar__button}>Sign Up</div></Link>
         </div>
       )}
     </nav>
@@ -38,7 +36,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   };
 };
 

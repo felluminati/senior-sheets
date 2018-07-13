@@ -2,16 +2,13 @@ import axios from 'axios';
 
 const  GET_COHORTS = 'GET_COHORTS';
 const  ADD_COHORT = 'ADD_COHORT';
-const  SELECT_COHORT = 'SELECT_COHORT';
 
-const initialState = {
-  cohorts: [],
-  selectedCohort: {},
-};
 
-const getCohorts = cohorts => ({GET_COHORTS, cohorts});
-const addCohort = cohort => ({ADD_COHORT, cohort});
-const selectCohort = cohort => ({SELECT_COHORTS, cohort});
+const initialState = [];
+
+const getCohorts = cohorts => ({type: GET_COHORTS, cohorts});
+const addCohort = cohort => ({type: ADD_COHORT, cohort});
+
 
 export const fetchCohorts = () => async dispatch => {
   try {
@@ -25,7 +22,7 @@ export const fetchCohorts = () => async dispatch => {
 
 export const postCohort = (name) => async dispatch => {
   try {
-    const {data} = await axios.post('/api/cohorts', {name});
+    const {data} = await axios.post('/api/cohorts', {name: name});
     dispatch(addCohort(data));
   }
   catch (err) {
@@ -36,11 +33,9 @@ export const postCohort = (name) => async dispatch => {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_COHORTS:
-      return {...state, cohorts: action.cohorts};
+      return action.cohorts;
     case ADD_COHORT:
-      return {...state, cohorts: [...state.cohorts, action.cohort]};
-    case SELECT_COHORT:
-      return {...state, selectedCohort: action.cohort};
+      return [...state, action.cohort];
     default: {
       return state;
     }
