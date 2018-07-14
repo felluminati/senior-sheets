@@ -34,26 +34,20 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id,
-    user: state.user
-  };
-};
+const mapState = (state) => ({
+  isLoggedIn: !!state.user.id,
+  user: state.user
+});
 
-const mapDispatch = dispatch => {
-  return {
-    handleClick() {
-      dispatch(logout());
-    }
-  };
-};
+const mapDispatch = (dispatch) => ({
+  handleClick() {
+    dispatch(logout());
+  }
+});
 
+Navbar.displayName = 'Navbar';
 export default connect(mapState, mapDispatch)(Navbar);
 
-/**
- * PROP TYPES
- */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

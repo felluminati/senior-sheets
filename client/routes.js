@@ -38,26 +38,20 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id
-  };
-};
+const mapState = state => ({
+  isLoggedIn: !!state.user.id
+});
 
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me());
-      dispatch(fetchCohorts());
-    }
-  };
-};
+const mapDispatch = dispatch => ({
+  loadInitialData() {
+    dispatch(me());
+    dispatch(fetchCohorts());
+  }
+});
 
+Routes.displayName = 'Routes';
 export default withRouter(connect(mapState, mapDispatch)(Routes));
 
-/**
- * PROP TYPES
- */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

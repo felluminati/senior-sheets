@@ -8,17 +8,19 @@ import styles from './index.css';
 class SelectTeam extends Component {
   displayName = SelectTeam;
   state = {
-    selectedTeam: '',
+    teamId: '',
     showAddForm: false,
   }
 
   handleChange = (event) => {
-    this.setState({selectedTeam: event.target.value});
+    this.setState({teamId: event.target.value});
   }
 
   handleSubmit = () => {
-    if (!this.state.selectedTeam) return;
-    const foundTeam = this.props.teams.find(team => team.id === +this.state.selectedTeam);
+    const {teamId} = this.state;
+    if (!teamId) return;
+    const foundTeam = this.props.teams.find(team => team.id === +teamId);
+    if (this.props.)
     this.props.changeTeam(foundTeam);
   }
 
@@ -26,7 +28,7 @@ class SelectTeam extends Component {
     this.setState({showAddForm: !this.state.showAddForm});
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const {cohortId, project, selectedCohort} = this.props;
     if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
       this.props.getTeams(cohortId, project);

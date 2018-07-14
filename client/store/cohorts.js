@@ -6,8 +6,8 @@ const  ADD_COHORT = 'ADD_COHORT';
 
 const initialState = [];
 
-const getCohorts = cohorts => ({type: GET_COHORTS, cohorts});
-const addCohort = cohort => ({type: ADD_COHORT, cohort});
+const getCohorts = (cohorts) => ({type: GET_COHORTS, cohorts});
+const addCohort = (cohort) => ({type: ADD_COHORT, cohort});
 
 
 export const fetchCohorts = () => async dispatch => {

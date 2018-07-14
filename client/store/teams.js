@@ -6,7 +6,7 @@ const GET_TEAMS = 'GET_TEAMS';
 const ADD_TEAM = 'ADD_TEAM';
 
 const getTeams = (teams) => ({type: GET_TEAMS, teams});
-const addTeam = team => ({type: ADD_TEAM, team});
+const addTeam = (team) => ({type: ADD_TEAM, team});
 
 export const fetchTeams = (cohortId, project) => async dispatch => {
   try {
