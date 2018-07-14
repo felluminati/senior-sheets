@@ -20,7 +20,6 @@ class SelectTeam extends Component {
     const {teamId} = this.state;
     if (!teamId) return;
     const foundTeam = this.props.teams.find(team => team.id === +teamId);
-    if (this.props.)
     this.props.changeTeam(foundTeam);
   }
 
