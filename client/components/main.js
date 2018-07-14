@@ -9,7 +9,7 @@ const Main = (props) => {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.title}>Select Cohort</div>
-          <SelectCohort showAddForm={this.showAddForm} />
+          <SelectCohort />
 
         {!!selectedCohort.id &&
         <div className={styles.choiceWrapper}>
@@ -20,7 +20,7 @@ const Main = (props) => {
         {!!project.length &&
           <div className={styles.choiceWrapper}>
             <div className={styles.title}>Select Team</div>
-              <SelectTeam showAddForm={this.showAddForm} />
+              <SelectTeam />
           </div>
         }
       </div>

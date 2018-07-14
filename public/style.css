@@ -10,6 +10,10 @@ body {
   background: #eeeeee;
 }
 
+p {
+  letter-spacing: .1rem;
+}
+
 a {
   text-decoration: none;
   color: #33383c;
@@ -28,51 +32,4 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
-}
-
-
-.main__selectOrAdd {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  text-align: right;
-}
-
-.main__option {
-  min-width: 200px;
-  border: 0;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
-  font-size: .9rem;
-  height: 2.2rem;
-  border-radius: 5px;
-  padding: .05em .2em;
-}
-
-.main__input {
-  min-width: 200px;
-  border: 0;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
-  font-size: .9rem;
-  height: 2.2rem;
-  border-radius: 5px;
-  padding: .05em .2em;
-}
-
-.main__button {
-  width: 35px;
-  height: 35px;
-  margin-left: 1rem;
-  border: 0;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 5px;
-  background-color: #33383c;
-  color: #ffffff;
-  padding: .05rem .2rem;
-}
-
-
-.main__addButton {
-  background-color: #e3262f;
 }

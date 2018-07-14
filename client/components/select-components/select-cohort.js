@@ -8,7 +8,7 @@ import styles from './index.css';
 class SelectCohort extends Component {
   displayName = SelectCohort;
   state = {
-    cohortId: this.props.selectedCohort.id || '',
+    cohortId: '',
     showAddForm: false,
   }
   handleChange = (event) => {
@@ -28,8 +28,8 @@ class SelectCohort extends Component {
     const {cohorts} = this.props;
     return ( !this.state.showAddForm ?
       <div className={styles.selectOrAdd}>
-        <select className={styles.option} onChange={this.handleChange} value={this.state.cohortId}>
-          <option selected disabled value="">Select a Cohort</option>
+        <select className={styles.option} onChange={this.handleChange} defaultValue="">
+          <option disabled value="">Select a Cohort</option>
           { cohorts.length ? cohorts.map((cohort) => (
             <option key={cohort.id} value={cohort.id}>{cohort.name}</option>))
             : <option />}

@@ -42,8 +42,8 @@ class SelectTeam extends Component {
     return ( !this.state.showAddForm ?
 
       <div className={styles.selectOrAdd}>
-        <select className={styles.option} onChange={this.handleChange} value={this.state.selectedTeam}>
-          <option selected disabled value="">Select a Team</option>
+        <select className={styles.option} onChange={this.handleChange} defaultValue="">
+          <option disabled value="">Select a Team</option>
           { teams.length ? teams.map((team) => (
             <option key={team.id} value={team.id}>{team.teamName}</option>))
             : <option />}
