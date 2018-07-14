@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {postCohort, postTeam} from '../../store';
-
+import {SelectButtons} from '../elements';
+import styles from './index.css';
 
 class AddForm extends Component {
   displayname = 'AddForm';
@@ -14,9 +15,9 @@ class AddForm extends Component {
   }
 
   handleSubmit = () => {
-    if (!this.state.input) return;
-    const {cohortId, project} = this.props;
     const {input} = this.state;
+    if (!input) return;
+    const {cohortId, project} = this.props;
     project ?
       this.props.addNewTeam(cohortId, project, input)
       : this.props.addNewCohort(input);
@@ -25,20 +26,22 @@ class AddForm extends Component {
 
   render () {
     return (
-      <div className="main__selectOrAdd">
-        <input autoFocus className="main__input" onChange={this.handleChange} value={this.state.input} />
-        <button className="main__button" onClick={this.handleSubmit}>✓</button>
-        <button className="main__button main__addButton" onClick={this.props.toggleAddForm}>x</button>
+      <div className={styles.selectOrAdd}>
+        <input autoFocus className={styles.input} onChange={this.handleChange} value={this.state.input} />
+        <SelectButtons
+          submit={this.handleSubmit}
+          toggle={this.props.toggleAddForm}
+          leftSymbol="x"
+        />
       </div>
     );
   }
 }
 
-const mapState = (state) => ({
-  cohorts: state.cohorts,
-  cohortId: state.selectedCohort.id,
-  project: state.project,
-  teams: state.teams,
+const mapState = ({cohorts, project, selectedCohort}) => ({
+  cohorts,
+  project,
+  cohortId: selectedCohort.id,
 });
 const mapDispatch = (dispatch) => ({
   addNewCohort: (name) => {

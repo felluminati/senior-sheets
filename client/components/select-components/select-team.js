@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchTeams } from '../../store';
+import {fetchTeams, selectTeam} from '../../store';
 import {AddForm} from '../index';
+import {SelectButtons} from '../elements';
+import styles from './index.css';
 
 class SelectTeam extends Component {
   displayName = SelectTeam;
@@ -9,17 +11,26 @@ class SelectTeam extends Component {
     selectedTeam: '',
     showAddForm: false,
   }
+
   handleChange = (event) => {
     this.setState({selectedTeam: event.target.value});
   }
+
   handleSubmit = () => {
     if (!this.state.selectedTeam) return;
-    const {project, cohortId, changeTeam} = this.props;
-    const selectedTeam = this.props.teams.find(team => team.id === +this.state.selectedTeam);
-    changeTeam(cohortId, project, selectedTeam);
+    const foundTeam = this.props.teams.find(team => team.id === +this.state.selectedTeam);
+    this.props.changeTeam(foundTeam);
   }
+
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
+  }
+
+  componentDidUpdate(prevProps) {
+    const {cohortId, project, selectedCohort} = this.props;
+    if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
+      this.props.getTeams(cohortId, project);
+    }
   }
   componentDidMount () {
     const {cohortId, project} = this.props;
@@ -29,15 +40,18 @@ class SelectTeam extends Component {
     const {teams} = this.props;
     return ( !this.state.showAddForm ?
 
-      <div className="main__selectOrAdd">
-        <select className="main__option" onChange={this.handleChange} value={this.state.selectedTeam}>
+      <div className={styles.selectOrAdd}>
+        <select className={styles.option} onChange={this.handleChange} value={this.state.selectedTeam}>
           <option selected disabled value="">Select a Team</option>
           { teams.length ? teams.map((team) => (
             <option key={team.id} value={team.id}>{team.teamName}</option>))
             : <option />}
         </select>
-        <button className="main__button" onClick={this.handleSubmit}>✓</button>
-        <button className="main__button main__addButton" onClick={this.toggleAddForm}>+</button>
+        <SelectButtons
+          submit={this.handleSubmit}
+          toggle={this.toggleAddForm}
+          leftSymbol="+"
+        />
       </div>
       :
       <AddForm toggleAddForm={this.toggleAddForm} />
@@ -45,14 +59,16 @@ class SelectTeam extends Component {
   }
 }
 
-const mapState = (state) => ({
-  project: state.project,
-  teams: state.teams,
-  cohortId: state.selectedCohort.id,
+const mapState = ({project, teams, selectedCohort, selectedTeam}) => ({
+  project,
+  teams,
+  selectedCohort,
+  selectedTeam,
+  cohortId: selectedCohort.id,
 });
 const mapDispatch = (dispatch) => ({
-  changeTeam: (cohortId, project, team) => {
-    console.log(team);
+  changeTeam: (team) => {
+    dispatch(selectTeam(team));
   },
   getTeams: (cohortId, project) => {
     dispatch(fetchTeams(cohortId, project));
