@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+.card {
+  align-self: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  min-width: 400px;
+  width: 50vw;
+  height: 50vh;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background-color: #ffffff;
+  border-radius: 5px;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.title {
+  font-size: 1.2rem;
+  text-align: center;
+  letter-spacing: .1rem;
+  margin-bottom: .7rem;
+  display: block;
+}
+
+.login__container {
+  margin-top: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  min-width: 250px;
+  width: 70%;
+  border: 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
+  font-size: .9rem;
+  height: 2.2rem;
+  border-radius: 5px;
+  padding: .05em .5em;
+  letter-spacing: .1rem;
+}
+
+.input::placeholder {
+  letter-spacing: .1rem;
+}
+
+.error {
+  width: 100%;
+  text-align: center;
+  color: #e3262f;
+}

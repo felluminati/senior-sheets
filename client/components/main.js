@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import styles from './main.css';
-import {SelectCohort, ChooseProject, SelectTeam} from './index';
+import styles from './index.css';
+import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
 
 const Main = (props) => {
-  const {selectedCohort, project} = props;
+  const {selectedCohort, project, selectedTeam} = props;
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -23,14 +23,20 @@ const Main = (props) => {
               <SelectTeam />
           </div>
         }
+        {!!selectedTeam.id &&
+          <div className={styles.choiceWrapper}>
+              <SelectView />
+          </div>
+        }
       </div>
     </div>
   );
 };
 
-const mapState = ({selectedCohort, project}) => ({
+const mapState = ({selectedCohort, project, selectedTeam}) => ({
   selectedCohort,
   project,
+  selectedTeam,
 });
 
 Main.displayName = 'Main';

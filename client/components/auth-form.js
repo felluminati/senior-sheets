@@ -1,46 +1,84 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {auth} from '../store';
+import styles from './index.css';
+import {BigBlackButton, BigRedButton} from './elements';
 
 /**
  * COMPONENT
  */
-const AuthForm = (props) => {
-  const {name, displayName, handleSubmit, error} = props;
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-  );
-};
+class AuthForm extends Component {
+  state = {
+    errors: [],
+  }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
+  isEmail = (email) => {
+    return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test(email);
+  }
+
+  validateEntries = (email, password) => {
+    const errArr = [];
+    if (!email.length || !this.isEmail(email)) errArr.push('Email is not valid!');
+    if (password.length < 8) errArr.push('Password must be longer than 8 characters!');
+    if (!errArr.length) return true;
+    this.setState({errors: errArr});
+    return false;
+  }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value.trim();
+    const password = event.target.password.value.trim();
+    const validate = this.validateEntries(email, password);
+    if (!validate) return;
+    this.props.submitAuth(this.props.name, email, password);
+  }
+  googleLogin = () => {
+
+  }
+  render () {
+    const {name, displayName, error} = this.props;
+    const {errors} = this.state;
+    return (
+      <div className={styles.container}>
+        <div className={styles.card}>
+        <form onSubmit={this.handleSubmit} name={name}>
+          <div className={styles.title}>{displayName}</div>
+            <div className={styles.login__container}>
+              <input className={styles.input} name="email" type="text" placeholder="Email" />
+            </div>
+            <div className={styles.login__container}>
+              <input className={styles.input}  name="password" type="password" placeholder="Password" />
+            </div>
+            { name === 'signup' && (
+            <div className={styles.login__container}>
+              <input className={styles.input}  name="felluminati" type="password" placeholder="Felluminati Access Key" />
+            </div>
+
+            )}
+            <div className={styles.login__container}>
+              <BigBlackButton
+              type="submit"
+              innerText={displayName}
+              />
+              <a href="/auth/google">
+                <BigRedButton
+                innerText={`Google ${displayName}`}
+                />
+              </a>
+            </div>
+            <div className={styles.error}>
+            {error && error.response && <p> {error.response.data} </p>}
+            {!!errors.length && errors.map(err => <p key={err.length}>{err}</p>)}
+            </div>
+        </form>
+        </div>
+      </div>
+    );
+  }
+}
+
 const mapLogin = (state) => ({
     name: 'login',
     displayName: 'Login',
@@ -54,11 +92,7 @@ const mapSignup = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  handleSubmit(evt) {
-    evt.preventDefault();
-    const formName = evt.target.name;
-    const email = evt.target.email.value;
-    const password = evt.target.password.value;
+  submitAuth(formName, email, password) {
     dispatch(auth(email, password, formName));
   }
 });
@@ -72,6 +106,6 @@ export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  submitAuth: PropTypes.func.isRequired,
   error: PropTypes.object
 };

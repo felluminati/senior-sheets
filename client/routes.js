@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Login, Signup, Navbar, SelectTeam, Main} from './components';
+import {Login, Signup, Navbar, Main} from './components';
 import {me, fetchCohorts} from './store';
 /**
  * COMPONENT
@@ -24,8 +24,6 @@ class Routes extends Component {
           {isLoggedIn && (
             <Switch>
               <Route path ="/home" component={Main} />
-              <Route path="/graceshopper" render={(props) => <SelectTeam {...props} project="Grace Shopper" />} />
-              <Route path="/capstone" render={(props) => <SelectTeam {...props} project="Capstone" />} />
             </Switch>
           )}
           <Route component={Login} />
