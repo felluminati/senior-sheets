@@ -32,10 +32,13 @@ class AuthForm extends Component {
     const password = event.target.password.value.trim();
     const validate = this.validateEntries(email, password);
     if (!validate) return;
-    this.props.submitAuth(this.props.name, email, password);
-  }
-  googleLogin = () => {
-
+    if (this.props.name === 'singup') {
+      const fellowAC = event.target.fas.value.trim();
+      this.props.submitAuth(this.props.name, email, password, fellowAC);
+    }
+    else {
+      this.props.submitAuth(this.props.name, email, password);
+    }
   }
   render () {
     const {name, displayName, error} = this.props;
@@ -46,14 +49,14 @@ class AuthForm extends Component {
         <form onSubmit={this.handleSubmit} name={name}>
           <div className={styles.title}>{displayName}</div>
             <div className={styles.login__container}>
-              <input className={styles.input} name="email" type="text" placeholder="Email" />
+              <input className={styles.input} name="email" type="text" placeholder="Email" autoComplete="email" />
             </div>
             <div className={styles.login__container}>
-              <input className={styles.input}  name="password" type="password" placeholder="Password" />
+              <input className={styles.input}  name="password" type="password" placeholder="Password" autoComplete={name === 'signup' ? 'new-password' : 'password'} />
             </div>
             { name === 'signup' && (
             <div className={styles.login__container}>
-              <input className={styles.input}  name="felluminati" type="password" placeholder="Felluminati Access Key" />
+              <input className={styles.input}  name="fas" type="password" placeholder="Felluminati Access Key" autoComplete="new-password" />
             </div>
 
             )}
@@ -92,8 +95,8 @@ const mapSignup = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  submitAuth(formName, email, password) {
-    dispatch(auth(email, password, formName));
+  submitAuth(formName, email, password, fas) {
+    dispatch(auth(email, password, formName, fas));
   }
 });
 
