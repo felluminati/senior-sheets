@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {logout} from '../store';
-import {SelectCohort} from './index';
+import {logout, resetStore} from '../store';
 import style from './navbar.css';
 
 const Navbar = ({handleClick, isLoggedIn, user}) => (
@@ -42,6 +41,7 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   handleClick() {
     dispatch(logout());
+    dispatch(resetStore());
   }
 });
 

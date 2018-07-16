@@ -12,7 +12,6 @@ const Main = (props) => {
         <div className={styles.title}>Select Cohort</div>
           <SelectCohort />
       </div>
-
         {!!selectedCohort.id &&
         <div className={styles.choiceWrapper}>
           <div className={styles.title}>Select Project</div>

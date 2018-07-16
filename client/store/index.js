@@ -10,10 +10,19 @@ import teams from './teams';
 import selectedTeam from './select-team';
 
 const reducer = combineReducers({user, cohorts, selectedCohort, project, teams, selectedTeam});
+
+export const resetStore = () => ({type: 'RESET_STORE'});
+const rootReducer = (state, action) => {
+  if (action.type === 'RESET_STORE') {
+    state = {};
+  }
+  return reducer(state, action);
+};
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 );
-const store = createStore(reducer, middleware);
+const store = createStore(rootReducer, middleware);
 
 export default store;
 export * from './user';
