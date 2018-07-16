@@ -18,9 +18,9 @@ WebFont.load({
 ReactDOM.render(
   <Provider store={store.store}>
     <PersistGate loading={null} persistor={store.persistor}>
-    <Router history={history}>
-      <App />
-    </Router>
+      <Router history={history}>
+        <App />
+      </Router>
     </PersistGate>
   </Provider>,
   document.getElementById('app')
