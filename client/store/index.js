@@ -1,4 +1,6 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {persistStore, persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -9,22 +11,30 @@ import project from './project';
 import teams from './teams';
 import selectedTeam from './select-team';
 
-const reducer = combineReducers({user, cohorts, selectedCohort, project, teams, selectedTeam});
+const combinedReducer = combineReducers({user, cohorts, selectedCohort, project, teams, selectedTeam});
 
 export const resetStore = () => ({type: 'RESET_STORE'});
 const rootReducer = (state, action) => {
   if (action.type === 'RESET_STORE') {
     state = {};
   }
-  return reducer(state, action);
+  return combinedReducer(state, action);
 };
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 );
-const store = createStore(rootReducer, middleware);
 
-export default store;
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer, middleware);
+const persistor = persistStore(store);
+
+export default {store, persistor};
 export * from './user';
 export * from './cohorts';
 export * from './select-cohort';
