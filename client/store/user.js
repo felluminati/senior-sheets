@@ -33,12 +33,12 @@ export const me = () => async dispatch => {
 export const auth = (email, password, method, fellowAC) => async dispatch => {
   let res;
   try {
+    console.log(email, password, method, fellowAC);
     if (method === 'signup') res = await axios.post(`/auth/${method}`, {email, password, fellowAC});
     if (method === 'login') res = await axios.post(`/auth/${method}`, {email, password});
   } catch (authError) {
     return dispatch(getUser({error: authError}));
   }
-
   try {
     dispatch(getUser(res.data));
     history.push('/home');

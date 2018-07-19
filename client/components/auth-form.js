@@ -27,12 +27,13 @@ class AuthForm extends Component {
     return false;
   }
   handleSubmit = (event) => {
+    console.log(event.target);
     event.preventDefault();
     const email = event.target.email.value.trim();
     const password = event.target.password.value.trim();
     const validate = this.validateEntries(email, password);
     if (!validate) return;
-    if (this.props.name === 'singup') {
+    if (this.props.name === 'signup') {
       const fellowAC = event.target.fas.value.trim();
       this.props.submitAuth(this.props.name, email, password, fellowAC);
     }
