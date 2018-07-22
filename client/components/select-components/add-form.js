@@ -26,14 +26,14 @@ class AddForm extends Component {
 
   render () {
     return (
-      <div className={styles.selectOrAdd}>
+      <section className={styles.selectOrAdd}>
         <input autoFocus className={styles.input} onChange={this.handleChange} value={this.state.input} />
         <SelectButtons
           submit={this.handleSubmit}
           toggle={this.props.toggleAddForm}
           leftSymbol="x"
         />
-      </div>
+      </section>
     );
   }
 }

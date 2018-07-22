@@ -11,6 +11,8 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SELECT_TEAM:
       return action.team;
+    case RESET_TEAM:
+      return {};
     default:
       return state;
   }

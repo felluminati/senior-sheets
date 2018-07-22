@@ -8,27 +8,10 @@ const Main = (props) => {
   return (
     <div className={styles.container}>
       <main className={styles.card}>
-        <article className={styles.choiceWrapper}>
-          <h2 className={styles.title}>Select Cohort</h2>
-            <SelectCohort />
-        </article>
-        {!!selectedCohort.id &&
-        <article className={styles.choiceWrapper}>
-          <h2 className={styles.title}>Select Project</h2>
-            <ChooseProject />
-        </article>
-        }
-        {!!project.length &&
-          <article className={styles.choiceWrapper}>
-            <h2 className={styles.title}>Select Team</h2>
-              <SelectTeam />
-          </article>
-        }
-        {!!selectedTeam.id &&
-          <article className={styles.choiceWrapper}>
-              <SelectView />
-          </article>
-        }
+        <SelectCohort />
+        {!!selectedCohort.id && <ChooseProject /> }
+        {!!project.length && <SelectTeam /> }
+        {!!selectedTeam.id && <SelectView /> }
       </main>
     </div>
   );

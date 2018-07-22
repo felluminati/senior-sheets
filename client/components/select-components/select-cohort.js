@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {selectCohort} from '../../store';
 import {AddForm} from '../index';
-import {SelectButtons} from '../elements';
+import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
 
 class SelectCohort extends Component {
   displayName = SelectCohort;
   state = {
-    cohortId: '',
+    cohortId: this.props.selectedCohort.id || '',
     showAddForm: false,
   }
   handleChange = (event) => {
@@ -26,22 +26,28 @@ class SelectCohort extends Component {
   }
   render () {
     const {cohorts} = this.props;
-    return ( !this.state.showAddForm ?
-      <div className={styles.selectOrAdd}>
-        <select className={styles.option} onChange={this.handleChange} defaultValue="">
-          <option disabled value="">Select a Cohort</option>
-          { cohorts.length ? cohorts.map((cohort) => (
-            <option key={cohort.id} value={cohort.id}>{cohort.name}</option>))
-            : <option />}
-        </select>
-        <SelectButtons
-          submit={this.handleSubmit}
-          toggle={this.toggleAddForm}
-          leftSymbol="+"
-        />
-      </div>
-      :
-      <AddForm toggleAddForm={this.toggleAddForm} />
+    return (
+      <section className={styles.choiceWrapper}>
+        <Title>Select Cohort</Title>
+        {this.state.showAddForm ?
+          <AddForm toggleAddForm={this.toggleAddForm} /> :
+          <article className={styles.selectOrAdd}>
+            <select className={styles.option} onChange={this.handleChange} value={this.state.cohortId}>
+              <option disabled value="">Select a Cohort</option>
+              {
+                cohorts.length ? cohorts.map((cohort) => (
+                <option key={cohort.id} value={cohort.id}>{cohort.name}</option>))
+                : <option />
+              }
+            </select>
+            <SelectButtons
+              submit={this.handleSubmit}
+              toggle={this.toggleAddForm}
+              leftSymbol="+"
+            />
+          </article>
+        }
+      </section>
     );
   }
 }

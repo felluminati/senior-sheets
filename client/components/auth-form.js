@@ -38,22 +38,22 @@ class AuthForm extends Component {
     const {errors} = this.state;
     return (
       <div className={styles.container}>
-        <div className={styles.card}>
+        <main className={styles.card}>
         <form onSubmit={this.handleSubmit} name={name}>
-          <div className={styles.title}>{displayName}</div>
-            <div className={styles.login__container}>
+          <h2 className={styles.title}>{displayName}</h2>
+            <article className={styles.login__container}>
               <input className={styles.input} name="email" type="text" placeholder="Email" autoComplete="email" />
-            </div>
-            <div className={styles.login__container}>
+            </article>
+            <article className={styles.login__container}>
               <input className={styles.input}  name="password" type="password" placeholder="Password" autoComplete={name === 'signup' ? 'new-password' : 'password'} />
-            </div>
+            </article>
             { name === 'signup' && (
-            <div className={styles.login__container}>
+            <article className={styles.login__container}>
               <input className={styles.input}  name="fas" type="password" placeholder="Felluminati Access Key" autoComplete="new-password" />
-            </div>
+            </article>
 
             )}
-            <div className={styles.login__container}>
+            <article className={styles.login__container}>
               <BigBlackButton
               type="submit"
               innerText={displayName}
@@ -63,13 +63,13 @@ class AuthForm extends Component {
                 innerText={`Google ${displayName}`}
                 />
               </a>
-            </div>
-            <div className={styles.error}>
+            </article>
+            <article className={styles.error}>
             {error && error.response && <p> {error.response.data} </p>}
             {!!errors.length && errors.map(err => <p key={err.length}>{err}</p>)}
-            </div>
+            </article>
         </form>
-        </div>
+        </main>
       </div>
     );
   }

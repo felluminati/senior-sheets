@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchTeams, selectTeam} from '../../store';
-import {AddForm} from '../index';
-import {SelectButtons} from '../elements';
+import {fetchTeams, selectTeam, resetTeam} from '../../store';
+import {AddForm} from '../';
+import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
 
 class SelectTeam extends Component {
   displayName = SelectTeam;
   state = {
-    teamId: '',
+    teamId: this.props.selectedTeam.id || '',
     showAddForm: false,
   }
 
@@ -28,9 +28,9 @@ class SelectTeam extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const {cohortId, project, selectedCohort} = this.props;
+    const {cohortId, project, selectedCohort, getTeams} = this.props;
     if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
-      this.props.getTeams(cohortId, project);
+      getTeams(cohortId, project);
     }
   }
   componentDidMount () {
@@ -39,23 +39,28 @@ class SelectTeam extends Component {
   }
   render () {
     const {teams} = this.props;
-    return ( !this.state.showAddForm ?
-
-      <div className={styles.selectOrAdd}>
-        <select className={styles.option} onChange={this.handleChange} defaultValue="">
-          <option disabled value="">Select a Team</option>
-          { teams.length ? teams.map((team) => (
-            <option key={team.id} value={team.id}>{team.teamName}</option>))
-            : <option />}
-        </select>
-        <SelectButtons
-          submit={this.handleSubmit}
-          toggle={this.toggleAddForm}
-          leftSymbol="+"
-        />
-      </div>
-      :
-      <AddForm toggleAddForm={this.toggleAddForm} />
+    return (
+      <section className={styles.choiceWrapper}>
+        <Title>Select Team</Title>
+        {
+          this.state.showAddForm ?
+          <AddForm toggleAddForm={this.toggleAddForm} /> :
+          <section className={styles.selectOrAdd}>
+            <select className={styles.option} onChange={this.handleChange} value={this.state.teamId}>
+              <option disabled value="">Select a Team</option>
+              {
+                !!teams.length && teams.map((team) => (
+                <option key={team.id} value={team.id}>{team.teamName}</option>))
+              }
+            </select>
+            <SelectButtons
+              submit={this.handleSubmit}
+              toggle={this.toggleAddForm}
+              leftSymbol="+"
+            />
+          </section>
+        }
+      </section>
     );
   }
 }
@@ -73,7 +78,8 @@ const mapDispatch = (dispatch) => ({
   },
   getTeams: (cohortId, project) => {
     dispatch(fetchTeams(cohortId, project));
-  }
+    dispatch(resetTeam());
+  },
 });
 
 export default connect(mapState, mapDispatch)(SelectTeam);

@@ -4,7 +4,7 @@ import {BigRedButton, BigBlackButton} from '../elements';
 import {Link} from 'react-router-dom';
 
 const SelectView = () => (
-  <div className={styles.container}>
+  <section className={styles.choiceWrapper}>
     <Link to="/home">
       <BigBlackButton
       innerText="View Team" />
@@ -13,7 +13,7 @@ const SelectView = () => (
       <BigRedButton
       innerText="Leave Feedback" />
     </Link>
-  </div>
+  </section>
 );
 
 SelectView.displayName = 'SelectView';

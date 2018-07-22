@@ -2,21 +2,24 @@ import React from 'react';
 import {connect} from 'react-redux';
 import styles from './index.css';
 import {selectProject} from '../../store';
-import {BigBlackButton, BigRedButton} from '../elements';
+import {BigBlackButton, BigRedButton, Title} from '../elements';
 
 const ChooseProject = (props) => (
-  <div className={styles.container}>
-    <BigBlackButton
-    name="graceShopper"
-    clickHandler={props.handleSelect}
-    innerText="Grace Shopper"
-    />
-    <BigRedButton
-    name="capstone"
-    clickHandler={props.handleSelect}
-    innerText="Capstone"
-    />
-  </div>
+  <section className={styles.choiceWrapper}>
+    <Title>Select Project</Title>
+    <section className={styles.container}>
+      <BigBlackButton
+      name="graceShopper"
+      clickHandler={props.handleSelect}
+      innerText="Grace Shopper"
+      />
+      <BigRedButton
+      name="capstone"
+      clickHandler={props.handleSelect}
+      innerText="Capstone"
+      />
+    </section>
+  </section>
 );
 
 const mapState = (state) => ({
