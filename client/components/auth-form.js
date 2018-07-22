@@ -3,31 +3,23 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {auth} from '../store';
 import styles from './index.css';
+import isEmail from 'validator/lib/isEmail';
 import {BigBlackButton, BigRedButton} from './elements';
-
-/**
- * COMPONENT
- */
 
 class AuthForm extends Component {
   state = {
     errors: [],
   }
 
-  isEmail = (email) => {
-    return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test(email);
-  }
-
   validateEntries = (email, password) => {
     const errArr = [];
-    if (!email.length || !this.isEmail(email)) errArr.push('Email is not valid!');
+    if (!email.length || !isEmail(email)) errArr.push('Email is not valid!');
     if (password.length < 8) errArr.push('Password must be longer than 8 characters!');
     if (!errArr.length) return true;
     this.setState({errors: errArr});
     return false;
   }
   handleSubmit = (event) => {
-    console.log(event.target);
     event.preventDefault();
     const email = event.target.email.value.trim();
     const password = event.target.password.value.trim();

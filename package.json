@@ -59,6 +59,7 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3",
+    "validator": "^10.4.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

@@ -7,29 +7,29 @@ const Main = (props) => {
   const {selectedCohort, project, selectedTeam} = props;
   return (
     <div className={styles.container}>
-      <div className={styles.card}>
-      <div className={styles.choiceWrapper}>
-        <div className={styles.title}>Select Cohort</div>
-          <SelectCohort />
-      </div>
+      <main className={styles.card}>
+        <article className={styles.choiceWrapper}>
+          <h2 className={styles.title}>Select Cohort</h2>
+            <SelectCohort />
+        </article>
         {!!selectedCohort.id &&
-        <div className={styles.choiceWrapper}>
-          <div className={styles.title}>Select Project</div>
+        <article className={styles.choiceWrapper}>
+          <h2 className={styles.title}>Select Project</h2>
             <ChooseProject />
-        </div>
+        </article>
         }
         {!!project.length &&
-          <div className={styles.choiceWrapper}>
-            <div className={styles.title}>Select Team</div>
+          <article className={styles.choiceWrapper}>
+            <h2 className={styles.title}>Select Team</h2>
               <SelectTeam />
-          </div>
+          </article>
         }
         {!!selectedTeam.id &&
-          <div className={styles.choiceWrapper}>
+          <article className={styles.choiceWrapper}>
               <SelectView />
-          </div>
+          </article>
         }
-      </div>
+      </main>
     </div>
   );
 };
