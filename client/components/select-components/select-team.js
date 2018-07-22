@@ -8,7 +8,7 @@ import styles from './index.css';
 class SelectTeam extends Component {
   displayName = SelectTeam;
   state = {
-    teamId: this.props.selectedTeam.id || '',
+    teamId: '',
     showAddForm: false,
   }
 
@@ -28,9 +28,9 @@ class SelectTeam extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const {cohortId, project, selectedCohort, getTeams} = this.props;
+    const {cohortId, project, selectedCohort, getTeamsAndReset} = this.props;
     if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
-      getTeams(cohortId, project);
+      getTeamsAndReset(cohortId, project);
     }
   }
   componentDidMount () {
@@ -46,7 +46,7 @@ class SelectTeam extends Component {
           this.state.showAddForm ?
           <AddForm toggleAddForm={this.toggleAddForm} /> :
           <section className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} value={this.state.teamId}>
+            <select className={styles.option} onChange={this.handleChange} defaultValue="">
               <option disabled value="">Select a Team</option>
               {
                 !!teams.length && teams.map((team) => (
@@ -76,7 +76,7 @@ const mapDispatch = (dispatch) => ({
   changeTeam: (team) => {
     dispatch(selectTeam(team));
   },
-  getTeams: (cohortId, project) => {
+  getTeamsAndReset: (cohortId, project) => {
     dispatch(fetchTeams(cohortId, project));
     dispatch(resetTeam());
   },

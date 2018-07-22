@@ -6,28 +6,27 @@ import {logout, resetStore} from '../store';
 import style from './navbar.css';
 
 const Navbar = ({handleClick, isLoggedIn, user}) => (
-  <div className={style.navbar}>
-    <div className={style.navbar__left}>
+  <nav className={style.navbar}>
+    <section className={style.navbar__left}>
       <img className={style.navbar__logo} src="/illuminati.png" />
-    </div>
-    <div className={style.navbar__leftish}>
-      <span className={style.navbar__title}>Senior Reporting</span>
-    </div>
-    <nav className={style.navbar__right}>
+    </section>
+    <section className={style.navbar__leftish}>
+      <h1 className={style.navbar__title}>Senior Reporting</h1>
+    </section>
+    <section className={style.navbar__right}>
       {isLoggedIn ? (
-        <div>
+        <article>
           <span> {user.email} </span>
-          <a href="#" onClick={handleClick}><div className={style.navbar__button}>Logout</div></a>
-        </div>
+          <a href="#" onClick={handleClick}><button className={style.navbar__button}>Logout</button></a>
+        </article>
       ) : (
-        <div>
+        <article>
           <Link to="/login"><div className={style.navbar__button}>Login</div></Link>
           <Link to="/signup"><div className={style.navbar__button}>Sign Up</div></Link>
-        </div>
+        </article>
       )}
-    </nav>
-    <hr />
-  </div>
+    </section>
+  </nav>
 );
 
 /**
