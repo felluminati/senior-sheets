@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchTeams, selectTeam, resetTeam} from '../../store';
-import {AddForm} from '../';
+import {AddTeam} from '../';
 import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
 
@@ -11,22 +11,18 @@ class SelectTeam extends Component {
     teamId: '',
     showAddForm: false,
   }
-
   handleChange = (event) => {
     this.setState({teamId: event.target.value});
   }
-
   handleSubmit = () => {
     const {teamId} = this.state;
     if (!teamId) return;
     const foundTeam = this.props.teams.find(team => team.id === +teamId);
     this.props.changeTeam(foundTeam);
   }
-
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
   }
-
   componentDidUpdate (prevProps) {
     const {cohortId, project, selectedCohort, getTeamsAndReset} = this.props;
     if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
@@ -44,7 +40,7 @@ class SelectTeam extends Component {
         <Title>Select Team</Title>
         {
           this.state.showAddForm ?
-          <AddForm toggleAddForm={this.toggleAddForm} /> :
+          <AddTeam toggleAddForm={this.toggleAddForm} /> :
           <section className={styles.selectOrAdd}>
             <select className={styles.option} onChange={this.handleChange} defaultValue="">
               <option disabled value="">Select a Team</option>

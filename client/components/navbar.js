@@ -17,12 +17,13 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
       {isLoggedIn ? (
         <article>
           <span> {user.email} </span>
-          <a href="#" onClick={handleClick}><button className={style.navbar__button}>Logout</button></a>
+          <Link to="/home"><div className={style.button}>Choose Team</div></Link>
+          <a href="#" onClick={handleClick}><div className={style.button}>Logout</div></a>
         </article>
       ) : (
         <article>
-          <Link to="/login"><div className={style.navbar__button}>Login</div></Link>
-          <Link to="/signup"><div className={style.navbar__button}>Sign Up</div></Link>
+          <Link to="/login"><div className={style.button}>Login</div></Link>
+          <Link to="/signup"><div className={style.button}>Sign Up</div></Link>
         </article>
       )}
     </section>

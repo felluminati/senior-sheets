@@ -17,8 +17,8 @@ class AddForm extends Component {
   handleSubmit = () => {
     const {input} = this.state;
     if (!input) return;
-    const {cohortId, project} = this.props;
-    project ?
+    const {cohortId, project, name} = this.props;
+    name === 'team' ?
       this.props.addNewTeam(cohortId, project, input)
       : this.props.addNewCohort(input);
     this.props.toggleAddForm();
@@ -38,9 +38,14 @@ class AddForm extends Component {
   }
 }
 
-const mapState = ({cohorts, project, selectedCohort}) => ({
-  cohorts,
+const mapCohort = ({project, selectedCohort}) => ({
   project,
+  name: 'cohort',
+  cohortId: selectedCohort.id,
+});
+const mapTeam = ({project, selectedCohort}) => ({
+  project,
+  name: 'team',
   cohortId: selectedCohort.id,
 });
 const mapDispatch = (dispatch) => ({
@@ -52,4 +57,5 @@ const mapDispatch = (dispatch) => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(AddForm);
+export const AddCohort = connect(mapCohort, mapDispatch)(AddForm);
+export const AddTeam  = connect(mapTeam, mapDispatch)(AddForm);

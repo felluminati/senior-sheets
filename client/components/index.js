@@ -6,5 +6,5 @@
 export {default as Navbar} from './navbar';
 export {Login, Signup} from './auth-form';
 export {default as Main} from './main';
-export {SelectTeam, ChooseProject, SelectCohort, AddForm, SelectView} from './select-components';
+export {SelectTeam, ChooseProject, SelectCohort, AddCohort, AddTeam, SelectView} from './select-components';
 export {default as FeedbackForm} from './feedback-form';

@@ -1,18 +1,18 @@
 
 .navbar {
-  padding: .5rem 1rem;
+  align-items: center;
   background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   color: #33383c;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: .5rem 1rem;
 }
 
 .navbar__logo {
-  width: 20%;
   height: auto;
   min-width: 70px;
+  width: 20%;
 }
 
 .navbar__title {
@@ -26,27 +26,27 @@
 
 .navbar__leftish {
   flex: 1 1 auto;
-  padding-left: 1rem;
   justify-self: flex-start;
+  padding-left: 1rem;
 }
 
 .navbar__right {
-  flex: 0 0 60%;
-  text-align: right;
   display: flex;
-  justify-content: flex-end;
+  flex: 0 0 60%;
   flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
 }
 
-.navbar__button {
-  text-align: center;
-  display: inline-block;
-  min-width: 50px;
-  border: 0;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
-  font-size: .8rem;
-  border-radius: 5px;
+.button {
   background-color: #33383c;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
   color: #ffffff;
+  display: inline-block;
+  font-size: .8rem;
+  min-width: 50px;
   padding: .4rem 1rem;
+  text-align: center;
 }

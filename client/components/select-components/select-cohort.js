@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {selectCohort} from '../../store';
-import {AddForm} from '../index';
+import {AddCohort} from '../index';
 import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
 
@@ -30,7 +30,7 @@ class SelectCohort extends Component {
       <section className={styles.choiceWrapper}>
         <Title>Select Cohort</Title>
         {this.state.showAddForm ?
-          <AddForm toggleAddForm={this.toggleAddForm} /> :
+          <AddCohort toggleAddForm={this.toggleAddForm} /> :
           <article className={styles.selectOrAdd}>
             <select className={styles.option} onChange={this.handleChange} value={this.state.cohortId}>
               <option disabled value="">Select a Cohort</option>

@@ -12,10 +12,8 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
-
   render() {
     const {isLoggedIn} = this.props;
-
     return (
       <div>
         <Route path="/" component={Navbar} />
@@ -54,7 +52,6 @@ const mapDispatch = dispatch => ({
   }
 });
 
-Routes.displayName = 'Routes';
 export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 Routes.propTypes = {
