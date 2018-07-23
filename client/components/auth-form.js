@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {auth} from '../store';
 import styles from './index.css';
 import isEmail from 'validator/lib/isEmail';
-import {BigBlackButton, BigRedButton} from './elements';
+import {BigBlackButton, BigRedButton, Title} from './elements';
 
 class AuthForm extends Component {
   state = {
@@ -37,40 +37,38 @@ class AuthForm extends Component {
     const {name, displayName, error} = this.props;
     const {errors} = this.state;
     return (
-      <div className={styles.container}>
-        <main className={styles.card}>
+      <section>
         <form onSubmit={this.handleSubmit} name={name}>
-          <h2 className={styles.title}>{displayName}</h2>
-            <article className={styles.login__container}>
-              <input className={styles.input} name="email" type="text" placeholder="Email" autoComplete="email" />
-            </article>
-            <article className={styles.login__container}>
-              <input className={styles.input}  name="password" type="password" placeholder="Password" autoComplete={name === 'signup' ? 'new-password' : 'password'} />
-            </article>
-            { name === 'signup' && (
-            <article className={styles.login__container}>
-              <input className={styles.input}  name="fas" type="password" placeholder="Felluminati Access Key" autoComplete="new-password" />
-            </article>
+         <Title>{displayName}</Title>
+          <article className={styles.login__container}>
+            <input className={styles.input} name="email" type="text" placeholder="Email" autoComplete="email" />
+          </article>
+          <article className={styles.login__container}>
+            <input className={styles.input}  name="password" type="password" placeholder="Password" autoComplete={name === 'signup' ? 'new-password' : 'password'} />
+          </article>
+          { name === 'signup' && (
+          <article className={styles.login__container}>
+            <input className={styles.input}  name="fas" type="password" placeholder="Felluminati Access Key" autoComplete="new-password" />
+          </article>
 
-            )}
-            <article className={styles.login__container}>
-              <BigBlackButton
-              type="submit"
-              innerText={displayName}
+          )}
+          <article className={styles.login__container}>
+            <BigBlackButton
+            type="submit"
+            innerText={displayName}
+            />
+            <a href="/auth/google">
+              <BigRedButton
+              innerText={`Google ${displayName}`}
               />
-              <a href="/auth/google">
-                <BigRedButton
-                innerText={`Google ${displayName}`}
-                />
-              </a>
-            </article>
-            <article className={styles.error}>
-            {error && error.response && <p> {error.response.data} </p>}
-            {!!errors.length && errors.map(err => <p key={err.length}>{err}</p>)}
-            </article>
+            </a>
+          </article>
+          <article className={styles.error}>
+          {error && error.response && <p> {error.response.data} </p>}
+          {!!errors.length && errors.map(err => <p key={err.length}>{err}</p>)}
+          </article>
         </form>
-        </main>
-      </div>
+      </section>
     );
   }
 }

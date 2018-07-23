@@ -6,14 +6,12 @@ import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
 const Main = (props) => {
   const {selectedCohort, project, selectedTeam} = props;
   return (
-    <div className={styles.container}>
-      <main className={styles.card}>
-        <SelectCohort />
-        {!!selectedCohort.id && <ChooseProject /> }
-        {!!project.length && <SelectTeam /> }
-        {!!selectedTeam.id && <SelectView /> }
-      </main>
-    </div>
+    <section>
+      <SelectCohort />
+      {!!selectedCohort.id && <ChooseProject /> }
+      {!!project.length && <SelectTeam /> }
+      {!!selectedTeam.id && <SelectView /> }
+    </section>
   );
 };
 

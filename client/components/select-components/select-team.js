@@ -76,6 +76,9 @@ const mapDispatch = (dispatch) => ({
   changeTeam: (team) => {
     dispatch(selectTeam(team));
   },
+  getTeams: (cohortId, project) => {
+    dispatch(fetchTeams(cohortId, project));
+  },
   getTeamsAndReset: (cohortId, project) => {
     dispatch(fetchTeams(cohortId, project));
     dispatch(resetTeam());
