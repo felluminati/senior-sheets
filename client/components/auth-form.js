@@ -24,13 +24,14 @@ class AuthForm extends Component {
     const email = event.target.email.value.trim();
     const password = event.target.password.value.trim();
     const validate = this.validateEntries(email, password);
+    const {name} = this.props;
     if (!validate) return;
     if (this.props.name === 'signup') {
       const fellowAC = event.target.fas.value.trim();
-      this.props.submitAuth(this.props.name, email, password, fellowAC);
+      this.props.submitAuth(name, email, password, fellowAC);
     }
     else {
-      this.props.submitAuth(this.props.name, email, password);
+      this.props.submitAuth(name, email, password);
     }
   }
   render () {
@@ -86,8 +87,8 @@ const mapSignup = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  submitAuth(formName, email, password, fas) {
-    dispatch(auth(email, password, formName, fas));
+  submitAuth(formName, email, password, fac) {
+    dispatch(auth(email, password, formName, fac));
   }
 });
 

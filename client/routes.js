@@ -19,6 +19,7 @@ class Routes extends Component {
         <Route path="/" component={Navbar} />
         <main className={styles.container}>
           <section className={styles.card}>
+            <button>RESET</button>
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
