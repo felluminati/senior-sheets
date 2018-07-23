@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  border-bottom: 1px rgba(177, 177, 177, 0.801) solid;
+}
+
+.date {
+  flex-basis: 60%;
+}
+
+.score {
+  flex-basis: 20%;
+  text-align: center;
+}
