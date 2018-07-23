@@ -5,7 +5,6 @@ import {SelectButtons} from '../elements';
 import styles from './index.css';
 
 class AddForm extends Component {
-  displayname = 'AddForm';
   state = {
     input: '',
   }
@@ -41,13 +40,16 @@ class AddForm extends Component {
 const mapCohort = ({project, selectedCohort}) => ({
   project,
   name: 'cohort',
+  displayName: 'AddCohort',
   cohortId: selectedCohort.id,
 });
 const mapTeam = ({project, selectedCohort}) => ({
   project,
   name: 'team',
+  displayName: 'AddTeam',
   cohortId: selectedCohort.id,
 });
+
 const mapDispatch = (dispatch) => ({
   addNewCohort: (name) => {
     dispatch(postCohort(name));

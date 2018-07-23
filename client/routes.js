@@ -12,6 +12,7 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
+
   render() {
     const {isLoggedIn} = this.props;
     return (
@@ -50,7 +51,7 @@ const mapDispatch = dispatch => ({
   loadInitialData() {
     dispatch(me());
     dispatch(fetchCohorts());
-  }
+  },
 });
 
 export default withRouter(connect(mapState, mapDispatch)(Routes));

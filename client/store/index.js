@@ -16,7 +16,7 @@ const combinedReducer = combineReducers({user, cohorts, selectedCohort, project,
 export const resetStore = () => ({type: 'RESET_STORE'});
 const rootReducer = (state, action) => {
   if (action.type === 'RESET_STORE') {
-    state = {};
+    state = {cohorts: state.cohorts};
   }
   return combinedReducer(state, action);
 };

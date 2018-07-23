@@ -6,33 +6,38 @@ import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
 
 class SelectTeam extends Component {
-  displayName = SelectTeam;
   state = {
     teamId: '',
     showAddForm: false,
   }
+
   handleChange = (event) => {
     this.setState({teamId: event.target.value});
   }
+
   handleSubmit = () => {
     const {teamId} = this.state;
     if (!teamId) return;
     const foundTeam = this.props.teams.find(team => team.id === +teamId);
     this.props.changeTeam(foundTeam);
   }
+
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
   }
+
   componentDidUpdate (prevProps) {
     const {cohortId, project, selectedCohort, getTeamsAndReset} = this.props;
     if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
       getTeamsAndReset(cohortId, project);
     }
   }
+
   componentDidMount () {
     const {cohortId, project} = this.props;
     this.props.getTeams(cohortId, project);
   }
+
   render () {
     const {teams} = this.props;
     return (

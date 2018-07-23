@@ -6,17 +6,19 @@ import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
 
 class SelectCohort extends Component {
-  displayName = SelectCohort;
   state = {
     cohortId: this.props.selectedCohort.id || '',
     showAddForm: false,
   }
+
   handleChange = (event) => {
     this.setState({cohortId: event.target.value});
   }
+
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
   }
+
   handleSubmit = () => {
     const {cohortId} = this.state;
     const {cohorts, changeCohort} = this.props;
@@ -24,6 +26,7 @@ class SelectCohort extends Component {
     const selectedCohort = cohorts.find(cohort => cohort.id === +cohortId);
     changeCohort(selectedCohort);
   }
+
   render () {
     const {cohorts} = this.props;
     return (
