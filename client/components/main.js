@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import styles from './index.css';
 import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
 
 const Main = (props) => {
