@@ -60,7 +60,7 @@ const mapState = ({cohorts, selectedCohort}) => ({
   selectedCohort,
 });
 const mapDispatch = (dispatch) => ({
-  changeCohort: (cohortName) => {
+  changeCohort(cohortName) {
     dispatch(selectCohort(cohortName));
   }
 });

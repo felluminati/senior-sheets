@@ -74,13 +74,13 @@ const mapState = ({project, teams, selectedCohort, selectedTeam}) => ({
   cohortId: selectedCohort.id,
 });
 const mapDispatch = (dispatch) => ({
-  changeTeam: (team) => {
+  changeTeam(team) {
     dispatch(selectTeam(team));
   },
-  getTeams: (cohortId, project) => {
+  getTeams(cohortId, project) {
     dispatch(fetchTeams(cohortId, project));
   },
-  getTeamsAndReset: (cohortId, project) => {
+  getTeamsAndReset(cohortId, project) {
     dispatch(fetchTeams(cohortId, project));
     dispatch(resetTeam());
   },

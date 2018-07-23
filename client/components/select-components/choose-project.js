@@ -26,7 +26,7 @@ const mapState = (state) => ({
   project: state.project,
 });
 const mapDispatch = (dispatch) => ({
-  handleSelect: (event) => {
+  handleSelect(event) {
     dispatch(selectProject(event.target.name));
   }
 });

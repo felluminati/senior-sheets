@@ -51,10 +51,10 @@ const mapTeam = ({project, selectedCohort}) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  addNewCohort: (name) => {
+  addNewCohort(name) {
     dispatch(postCohort(name));
   },
-  addNewTeam: (cohortId, project, name) => {
+  addNewTeam(cohortId, project, name) {
     dispatch(postTeam(cohortId, project, name));
   }
 });
