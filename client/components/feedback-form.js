@@ -1,14 +1,23 @@
 import React, {Component} from 'react';
 import {Title} from './elements';
 import styles from './index.css';
+import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+
 class FeedbackForm extends Component {
   state = {
     teamwork: '',
-    morale: ''
+    morale: '',
+    date: moment(),
   }
 
-  handleChange = (event) => {
+  handleEmojiChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
+  }
+
+  handleDateChange = (date) => {
+    console.log(date);
+    this.setState({date});
   }
 
   render () {
@@ -28,8 +37,12 @@ class FeedbackForm extends Component {
     return (
       <main>
         <Title>Feedback Form</Title>
-        <Title>Teamwork</Title>
+
         <form >
+          <Title>Date</Title>
+            <DayPickerInput />
+
+          <Title>Teamwork</Title>
           <article className={styles.feedback__radioList}>
             {options.map((elem) => (
               <label
@@ -43,7 +56,7 @@ class FeedbackForm extends Component {
                   id={`teamwork${elem.num}`}
                   value={elem.num}
                   checked={+this.state.teamwork === elem.num}
-                  onChange={this.handleChange}
+                  onChange={this.handleEmojiChange}
                   />
                 {elem.emoji}
               </label>
@@ -63,7 +76,7 @@ class FeedbackForm extends Component {
                 id={`morale${elem.num}`}
                 value={elem.num}
                 checked={this.state.morale == elem.num}
-                onChange={this.handleChange}
+                onChange={this.handleEmojiChange}
                 />
               {elem.emoji}
             </label>
