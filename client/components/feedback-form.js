@@ -68,7 +68,7 @@ class FeedbackForm extends Component {
             <label
               key={`morale${elem.num}`}
               htmlFor={`morale${elem.num}`}
-              className={this.state.morale == elem.num ? styles.checked : ''}
+              className={+this.state.morale === elem.num ? styles.checked : ''}
               >
               <input
                 type="radio"
