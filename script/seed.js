@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('../server/db');
-const {User, Cohort, GraceShopper, Capstone} = require('../server/db/models');
+const {User, Cohort, Team} = require('../server/db/models');
 
 async function seed() {
   await db.sync({force: true});
@@ -13,21 +13,20 @@ async function seed() {
     Cohort.create({name: 1808})
   ]);
   await Promise.all([
-    GraceShopper.create({teamName: 'Sample Team 1', cohortId: 1}),
-    GraceShopper.create({teamName: 'Sample Team 2', cohortId: 1}),
-    GraceShopper.create({teamName: 'Sample Team 3', cohortId: 1}),
-    GraceShopper.create({teamName: 'Sample Team 1', cohortId: 2}),
-    GraceShopper.create({teamName: 'Sample Team 2', cohortId: 2}),
-    GraceShopper.create({teamName: 'Sample Team 3', cohortId: 2}),
+    Team.create({teamName: 'Sample Team 1', cohortId: 1, project: 'graceShopper'}),
+    Team.create({teamName: 'Sample Team 2', cohortId: 1, project: 'graceShopper'}),
+    Team.create({teamName: 'Sample Team 3', cohortId: 1, project: 'graceShopper'}),
+    Team.create({teamName: 'Sample Team 1', cohortId: 2, project: 'graceShopper'}),
+    Team.create({teamName: 'Sample Team 2', cohortId: 2, project: 'graceShopper'}),
+    Team.create({teamName: 'Sample Team 3', cohortId: 2, project: 'graceShopper'}),
+    Team.create({teamName: 'Sample Team 1', cohortId: 1, project: 'capstone'}),
+    Team.create({teamName: 'Sample Team 2', cohortId: 1, project: 'capstone'}),
+    Team.create({teamName: 'Sample Team 3', cohortId: 1, project: 'capstone'}),
+    Team.create({teamName: 'Sample Team 1', cohortId: 2, project: 'capstone'}),
+    Team.create({teamName: 'Sample Team 2', cohortId: 2, project: 'capstone'}),
+    Team.create({teamName: 'Sample Team 3', cohortId: 2, project: 'capstone'}),
   ]);
-  await Promise.all([
-    Capstone.create({teamName: 'Sample Team 1', cohortId: 1}),
-    Capstone.create({teamName: 'Sample Team 2', cohortId: 1}),
-    Capstone.create({teamName: 'Sample Team 3', cohortId: 1}),
-    Capstone.create({teamName: 'Sample Team 1', cohortId: 2}),
-    Capstone.create({teamName: 'Sample Team 2', cohortId: 2}),
-    Capstone.create({teamName: 'Sample Team 3', cohortId: 2}),
-  ]);
+
   console.log(`seeded successfully`);
 }
 
