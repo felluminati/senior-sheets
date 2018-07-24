@@ -9,6 +9,7 @@ class FeedbackForm extends Component {
     teamwork: '',
     morale: '',
     date: moment(),
+    comments: '',
   }
 
   handleEmojiChange = (event) => {
@@ -16,8 +17,17 @@ class FeedbackForm extends Component {
   }
 
   handleDateChange = (date) => {
-    console.log(date);
     this.setState({date});
+  }
+
+  handleCommentsChange = (event) => {
+    this.setState({comments: event.target.value});
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const {teamwork, morale, date, comments} = this.state;
+    console.log({teamwork, morale, date, comments});
   }
 
   render () {
@@ -37,13 +47,16 @@ class FeedbackForm extends Component {
     return (
       <main>
         <Title>Feedback Form</Title>
-
-        <form >
-          <Title>Date</Title>
-            <DayPickerInput />
-
-          <Title>Teamwork</Title>
-          <article className={styles.feedback__radioList}>
+        <form method="post" onSubmit={this.handleSubmit}>
+          <section>
+            <h2 className={styles.feedback__title}>Date:</h2>
+            <article className={styles.feedback__date}>
+              <DayPickerInput onDayChange={this.handleDateChange} />
+            </article>
+          </section>
+          <section>
+            <h2 className={styles.feedback__title}>Teamwork:</h2>
+            <article className={styles.feedback__radioList}>
             {options.map((elem) => (
               <label
               key={`teamwork${elem.num}`}
@@ -60,29 +73,38 @@ class FeedbackForm extends Component {
                   />
                 {elem.emoji}
               </label>
-              ))}
-          </article>
-        <Title>Morale</Title>
-        <article className={styles.feedback__radioList}>
-          {options.map((elem) => (
-            <label
-              key={`morale${elem.num}`}
-              htmlFor={`morale${elem.num}`}
-              className={+this.state.morale === elem.num ? styles.checked : ''}
-              >
-              <input
-                type="radio"
-                name="morale"
-                id={`morale${elem.num}`}
-                value={elem.num}
-                checked={this.state.morale == elem.num}
-                onChange={this.handleEmojiChange}
-                />
-              {elem.emoji}
-            </label>
             ))}
-        </article>
-          <textarea name="comments" />
+            </article>
+          </section>
+          <section>
+            <h2 className={styles.feedback__title}>Morale:</h2>
+            <article className={styles.feedback__radioList}>
+              {options.map((elem) => (
+                <label
+                  key={`morale${elem.num}`}
+                  htmlFor={`morale${elem.num}`}
+                  className={+this.state.morale === elem.num ? styles.checked : ''}
+                  >
+                  <input
+                    type="radio"
+                    name="morale"
+                    id={`morale${elem.num}`}
+                    value={elem.num}
+                    checked={this.state.morale == elem.num}
+                    onChange={this.handleEmojiChange}
+                    />
+                  {elem.emoji}
+                </label>
+                ))}
+            </article>
+          </section>
+          <section>
+            <h2 className={styles.feedback__title}>Comments:</h2>
+            <article>
+              <textarea className={styles.feedback__comments} name="comments" onChange={this.handleCommentsChange} />
+            </article>
+          </section>
+          <input type="submit" value="Submit Feedback" />
         </form>
       </main>
     );
