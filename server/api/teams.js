@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Cohort, GraceShopper, Capstone} = require('../db/models');
+const {Cohort, Team} = require('../db/models');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
@@ -7,10 +7,10 @@ router.get('/', async (req, res, next) => {
     const {cohortId, project} = req.query;
     let teams = null;
     if (project === 'graceShopper') {
-      teams = await GraceShopper.findAll({where: {cohortId: +cohortId}});
+      teams = await Team.findAll({where: {cohortId: +cohortId, project}});
     }
     else if (project === 'capstone') {
-      teams = await Capstone.findAll({where: {cohortId: +cohortId}});
+      teams = await Team.findAll({where: {cohortId: +cohortId, project}});
     }
     else {
       const err = new Error('Not Grace Shopper or Capstone!');
@@ -29,10 +29,10 @@ router.post('/', async (req, res, next) => {
     const {teamName, project, cohortId} = req.body;
     let team = null;
     if (project === 'graceShopper') {
-      team = await GraceShopper.create({teamName, cohortId: +cohortId});
+      team = await Team.create({teamName, cohortId: +cohortId, project});
     }
     else if (project === 'capstone') {
-      team = await Capstone.create({teamName, cohortId: +cohortId});
+      team = await Team.create({teamName, cohortId: +cohortId, project});
     }
     else {
       const err = new Error('Not Grace Shopper or Capstone!');

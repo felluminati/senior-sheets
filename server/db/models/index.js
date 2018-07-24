@@ -1,25 +1,16 @@
 const User = require('./user');
-const Capstone = require('./capstone');
-const GraceShopper = require('./graceshopper');
+const Team = require('./team');
 const Cohort = require('./cohort');
 const Feedback = require('./feedback');
 
-Cohort.hasMany(Capstone);
-Capstone.belongsTo(Cohort);
-Cohort.hasMany(GraceShopper);
-GraceShopper.belongsTo(Cohort);
-GraceShopper.hasMany(Feedback);
-Capstone.hasMany(Feedback);
-Feedback.belongsToMany(Capstone, {through: 'capstone_feedback'});
-Capstone.belongsToMany(Feedback, {through: 'capstone_feedback'});
-Feedback.belongsToMany(GraceShopper,  {through: 'graceshopper_feedback'});
-GraceShopper.belongsToMany(Feedback,  {through: 'graceshopper_feedback'});
-
+Team.belongsTo(Cohort);
+Cohort.hasMany(Team);
+Team.hasMany(Feedback);
+Feedback.belongsToMany(Team, {through: 'team_feedback'});
 
 module.exports = {
   User,
-  Capstone,
-  GraceShopper,
+  Team,
   Cohort,
   Feedback
 };
