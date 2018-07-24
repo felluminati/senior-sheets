@@ -19,20 +19,28 @@
 }
 
 label {
-  display: flex;
   text-align: center;
-  justify-content: center;
+  align-items: center;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
-input[type=radio]:checked + label {
-  color: #f00;
-  background-color: red;
+.checked {
+  text-shadow: black 2px 0px 10px;
+  font-size: 2.1rem;
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
+
+input[type=radio]{
+  display: none;
 }
 
 .feedback__radioList {
   display: flex;
   justify-content: space-evenly;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
 }
 
 .title {
