@@ -40,7 +40,28 @@ input[type=radio]{
   display: flex;
   justify-content: space-evenly;
   font-size: 1.8rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.feedback__title {
+  font-size: 1.1rem;
+  letter-spacing: .1rem;
+  margin-bottom: .3rem;
+  font-weight: 500;
+}
+
+.feedback__comments {
+  width: 100%;
+  min-height: 200px;
+  font-size: .9rem;
+  margin: .3rem 0;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.feedback__date {
+  margin-bottom: 1.5rem;
 }
 
 .title {
