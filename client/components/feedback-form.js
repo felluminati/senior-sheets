@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {Title} from './elements';
+import {connect} from 'react-redux';
 import styles from './index.css';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import axios from 'axios';
 
 class FeedbackForm extends Component {
   state = {
@@ -24,10 +26,10 @@ class FeedbackForm extends Component {
     this.setState({comments: event.target.value});
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     const {teamwork, morale, date, comments} = this.state;
-    console.log({teamwork, morale, date, comments});
+    await axios.post(`/api/feedback/${this.props.selectedTeam.id}`, {teamwork, morale, date, comments});
   }
 
   render () {
@@ -43,7 +45,6 @@ class FeedbackForm extends Component {
       {emoji: '😎', num: 9},
       {emoji: '🤩', num: 10}
     ];
-    console.log(this.state);
     return (
       <main>
         <Title>Feedback Form</Title>
@@ -111,4 +112,12 @@ class FeedbackForm extends Component {
   }
 }
 
-export default FeedbackForm;
+const mapState = state => {
+  return {
+    selectedTeam: state.selectedTeam
+  }
+};
+
+const mapDispatch = null;
+
+export default connect(mapState, mapDispatch)(FeedbackForm);
