@@ -10,7 +10,8 @@ const options = [
   '😏',
   '😊',
   '🤓',
-  '😎'
+  '😎',
+  '🤩',
 ];
 
 class FeedbackCard extends Component {

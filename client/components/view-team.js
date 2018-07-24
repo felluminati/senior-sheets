@@ -4,19 +4,13 @@ import styles from './feedback-card.css';
 import { FeedbackCard } from './index';
 import { connect } from 'react-redux';
 import EmojiKey from './emoji-key';
-
-
-const dumbData = [
-  { id: 1, date: '7/23', teamwork: 7, morale: 6, comments: 'They seemed a little sad but worked well' },
-  { id: 2, date: '7/24', teamwork: 8, morale: 9, comments: 'Bad day to be a waffle' },
-  { id: 3, date: '7/25', teamwork: 4, morale: 5, comments: 'John was sick and Randy got mad at Clarissa' },
-]
+import { fetchTeamFeedback } from '../store';
 
 class ViewTeam extends Component {
-  constructor() {
-    super()
-    this.dumbData = dumbData;
+  componentDidMount(){
+    this.props.getTeamFeedback(this.props.teamId);
   }
+
   render() {
     return (
       <div>
@@ -26,7 +20,7 @@ class ViewTeam extends Component {
           <div className={styles.score}>Teamwork</div>
           <div className={styles.score}>Morale</div>
         </div>
-        {dumbData.map(feedback => {
+        {this.props.teamFeedback.map(feedback => {
           return (
             <FeedbackCard key={feedback.id} feedback={feedback} />
           )
@@ -39,10 +33,16 @@ class ViewTeam extends Component {
 
 const mapState = (state) => {
   return {
-    selectedTeam: state.selectedTeam
+    teamId: state.selectedTeam.id,
+    selectedTeam: state.selectedTeam,
+    teamFeedback: state.teamFeedback
   };
 };
 
-const mapDispatch = null;
+const mapDispatch = (dispatch) => ({
+  getTeamFeedback(teamId) {
+    dispatch(fetchTeamFeedback(teamId));
+  }
+});
 
 export default connect(mapState, mapDispatch)(ViewTeam);
