@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './index.css';
-import { Title } from './elements';
 
 const options = [
-  '🤮',
+  '🤯',
   '🤢',
   '😨',
   '😣',
