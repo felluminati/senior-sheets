@@ -24,3 +24,14 @@ router.post('/:teamId', async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete('/:feedbackId', async (req, res, next) => {
+  try {
+    const {feedbackId} = req.params;
+    const deletedFeedback = await Feedback.destroy({where: {id: feedbackId}});
+    res.json('Successfully deleted!');
+  }
+  catch (err) {
+    next(err)
+  }
+})
