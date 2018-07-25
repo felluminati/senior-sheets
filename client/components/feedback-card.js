@@ -3,7 +3,7 @@ import styles from './feedback-card.css';
 import moment from 'moment';
 
 const options = [
-  '🤮',
+  '🤯',
   '🤢',
   '😨',
   '😣',
@@ -37,9 +37,7 @@ class FeedbackCard extends Component {
           <div className={styles.score}>{options[feedback.morale - 1]}</div>
         </div>
         {this.state.comments &&
-          <div>
-            Comments: {feedback.comments}
-          </div>}
+          <div style={{whiteSpace: 'pre-wrap'}}>{feedback.comments}</div>}
       </div>
     )
   }

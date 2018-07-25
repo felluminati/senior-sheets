@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Title } from './elements';
+import { Title, BigRedButton } from './elements';
 import styles from './feedback-card.css';
 import { FeedbackCard } from './index';
 import { connect } from 'react-redux';
 import EmojiKey from './emoji-key';
 import { fetchTeamFeedback } from '../store';
+import {Link} from 'react-router-dom';
 
 class ViewTeam extends Component {
   componentDidMount(){
@@ -27,6 +28,10 @@ class ViewTeam extends Component {
             )
           })}
         </div>
+        <Link to="/feedback/add">
+          <BigRedButton
+          innerText="Leave Feedback" />
+        </Link>
         <EmojiKey />
       </div>
     );
