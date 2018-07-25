@@ -12,6 +12,10 @@ class ViewTeam extends Component {
     this.props.getTeamFeedback(this.props.teamId);
   }
 
+  deleteHandler = (feedbackId) => {
+    if (window.confirm('Are you sure you wish to delete this item?')) this.props.removeTeamFeedback(feedbackId);
+  }
+
   render() {
     return (
       <div className={styles.view_team_container}>
@@ -27,7 +31,7 @@ class ViewTeam extends Component {
               <FeedbackCard
                 key={feedback.id}
                 feedback={feedback}
-                deleteHandler={this.props.removeTeamFeedback} />
+                deleteHandler={this.deleteHandler} />
             )
           })}
         </div>
