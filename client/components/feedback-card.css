@@ -21,3 +21,10 @@
   flex-basis: 20%;
   text-align: center;
 }
+
+.view_team_container {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

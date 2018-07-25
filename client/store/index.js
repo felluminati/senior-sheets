@@ -10,8 +10,9 @@ import selectedCohort from './select-cohort';
 import project from './project';
 import teams from './teams';
 import selectedTeam from './select-team';
+import teamFeedback from './team-feedback';
 
-const combinedReducer = combineReducers({user, cohorts, selectedCohort, project, teams, selectedTeam});
+const combinedReducer = combineReducers({user, cohorts, selectedCohort, project, teams, selectedTeam, teamFeedback});
 
 export const resetStore = () => ({type: 'RESET_STORE'});
 const rootReducer = (state, action) => {
@@ -41,3 +42,4 @@ export * from './select-cohort';
 export * from './project';
 export * from './teams';
 export * from './select-team';
+export * from './team-feedback';
