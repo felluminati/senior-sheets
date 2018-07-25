@@ -100,3 +100,10 @@ input[type=radio]{
   text-align: center;
   width: 100%;
 }
+
+.emojiKey {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+}

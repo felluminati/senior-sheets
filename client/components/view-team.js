@@ -13,18 +13,20 @@ class ViewTeam extends Component {
 
   render() {
     return (
-      <div>
-        <Title>{this.props.selectedTeam.teamName}</Title>
-        <div className={styles.container}>
-          <div className={styles.date}>Date</div>
-          <div className={styles.score}>Teamwork</div>
-          <div className={styles.score}>Morale</div>
+      <div className={styles.view_team_container}>
+        <div>
+          <Title>{this.props.selectedTeam.teamName}</Title>
+          <div className={styles.container}>
+            <div className={styles.date}>Date</div>
+            <div className={styles.score}>Teamwork</div>
+            <div className={styles.score}>Morale</div>
+          </div>
+          {this.props.teamFeedback.map(feedback => {
+            return (
+              <FeedbackCard key={feedback.id} feedback={feedback} />
+            )
+          })}
         </div>
-        {this.props.teamFeedback.map(feedback => {
-          return (
-            <FeedbackCard key={feedback.id} feedback={feedback} />
-          )
-        })}
         <EmojiKey />
       </div>
     );
@@ -35,7 +37,7 @@ const mapState = (state) => {
   return {
     teamId: state.selectedTeam.id,
     selectedTeam: state.selectedTeam,
-    teamFeedback: state.teamFeedback
+    teamFeedback: state.teamFeedback.sort((a, b) => new Date(b.date) - new Date(a.date))
   };
 };
 
