@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter, Route, Switch} from 'react-router-dom';
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Login, Signup, Navbar, Main, FeedbackForm, ViewTeam} from './components';
 import {me, fetchCohorts} from './store';
@@ -28,6 +28,7 @@ class Routes extends Component {
                 <Route path ="/home" component={Main} />
                 <Route path ="/feedback/add" component={FeedbackForm} />
                 <Route path ="/feedback/view" component={ViewTeam} />
+                <Route render={() => <Redirect to="/home" />} />
               </Switch>
             )}
             <Route component={Login} />

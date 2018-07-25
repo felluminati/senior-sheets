@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import history from '../history';
 import {auth} from '../store';
 import styles from './index.css';
 import isEmail from 'validator/lib/isEmail';
@@ -33,6 +34,7 @@ class AuthForm extends Component {
     else {
       this.props.submitAuth(name, email, password);
     }
+    history.push('/home');
   }
   render () {
     const {name, displayName, error} = this.props;
