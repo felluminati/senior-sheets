@@ -37,7 +37,7 @@ class FeedbackCard extends Component {
           <div className={styles.score}>{options[feedback.morale - 1]}</div>
         </div>
         {this.state.comments &&
-          <div>{feedback.comments}</div>}
+          <div style={{whiteSpace: 'pre-wrap'}}>{feedback.comments}</div>}
       </div>
     )
   }
