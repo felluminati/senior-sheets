@@ -28,3 +28,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+}

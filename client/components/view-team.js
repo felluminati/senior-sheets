@@ -4,7 +4,7 @@ import styles from './feedback-card.css';
 import { FeedbackCard } from './index';
 import { connect } from 'react-redux';
 import EmojiKey from './emoji-key';
-import { fetchTeamFeedback } from '../store';
+import { fetchTeamFeedback, deleteTeamFeedback } from '../store';
 import {Link} from 'react-router-dom';
 
 class ViewTeam extends Component {
@@ -24,7 +24,10 @@ class ViewTeam extends Component {
           </div>
           {this.props.teamFeedback.map(feedback => {
             return (
-              <FeedbackCard key={feedback.id} feedback={feedback} />
+              <FeedbackCard
+                key={feedback.id}
+                feedback={feedback}
+                deleteHandler={this.props.removeTeamFeedback} />
             )
           })}
         </div>
@@ -49,6 +52,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => ({
   getTeamFeedback(teamId) {
     dispatch(fetchTeamFeedback(teamId));
+  },
+  removeTeamFeedback(feedbackId) {
+    dispatch(deleteTeamFeedback(feedbackId));
   }
 });
 
