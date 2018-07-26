@@ -29,7 +29,7 @@ class SelectCohort extends Component {
         {this.state.showAddForm ?
           <AddCohort toggleAddForm={this.toggleAddForm} /> :
           <article className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} value={selectedCohort.id}>
+            <select className={styles.option} onChange={this.handleChange} value={selectedCohort.id || ''}>
               <option disabled value="">Select a Cohort</option>
               {
                 cohorts.length ? cohorts.map((cohort) => (
