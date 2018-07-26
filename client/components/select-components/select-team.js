@@ -41,7 +41,7 @@ class SelectTeam extends Component {
           this.state.showAddForm ?
           <AddTeam toggleAddForm={this.toggleAddForm} /> :
           <section className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} defaultValue={selectedTeam.id}>
+            <select className={styles.option} onChange={this.handleChange} value={selectedTeam.id || ''}>
               <option disabled value="">Select a Team</option>
               {
                 !!teams.length && teams.map((team) => (
