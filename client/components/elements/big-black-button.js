@@ -6,7 +6,8 @@ const BigBlackButton = (props) => {
     <button
       className={styles.largeButton__black}
       onClick={props.clickHandler}
-      name={props.name}>
+      name={props.name}
+      type={props.type}>
       {props.innerText}
     </button>
   );

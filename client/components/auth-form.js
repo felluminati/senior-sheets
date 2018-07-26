@@ -59,18 +59,21 @@ class AuthForm extends Component {
             <BigBlackButton
             type="submit"
             innerText={displayName}
+            onClick={this.handleSubmit}
             />
             <a href="/auth/google">
               <BigRedButton
+              type="button"
               innerText={`Google ${displayName}`}
               />
             </a>
           </article>
-          <article className={styles.error}>
+
+        </form>
+        <article className={styles.error}>
           {error && error.response && <p> {error.response.data} </p>}
           {!!errors.length && errors.map(err => <p key={err.length}>{err}</p>)}
-          </article>
-        </form>
+        </article>
       </section>
     );
   }
