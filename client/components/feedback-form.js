@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import styles from './index.css';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import {postTeamFeedback} from '../store';
+import {postTeamFeedback, putTeamFeedback} from '../store';
 
 class FeedbackForm extends Component {
   state = {
     teamwork: '',
     morale: '',
-    date: moment(),
+    date: moment(new Date()).format('YYYY-M-D'),
     comments: '',
   }
 
@@ -29,7 +29,20 @@ class FeedbackForm extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const { teamwork, morale, date, comments } = this.state;
-    this.props.submitTeamFeedback(this.props.selectedTeam.id, { teamwork, morale, date, comments });
+    if (this.props.name === 'edit'){
+      this.props.editTeamFeedback({id: this.props.currentFeedback.id, teamwork, morale, date, comments});
+    }
+    else {
+      this.props.submitTeamFeedback(this.props.selectedTeam.id, { teamwork, morale, date, comments });
+    }
+  }
+
+  componentDidMount(){
+    if (this.props.name === 'edit'){
+      const {currentFeedback} = this.props;
+      const {teamwork, morale, date, comments} = currentFeedback;
+      this.setState({teamwork, morale, date: moment(date).format('YYYY-M-D'), comments });
+    }
   }
 
   render() {
@@ -52,7 +65,7 @@ class FeedbackForm extends Component {
           <section>
             <h2 className={styles.feedback__title}>Date:</h2>
             <article className={styles.feedback__date}>
-              <DayPickerInput onDayChange={this.handleDateChange} />
+              <DayPickerInput value={this.state.date} onDayChange={this.handleDateChange} />
             </article>
           </section>
           <section>
@@ -102,7 +115,7 @@ class FeedbackForm extends Component {
           <section>
             <h2 className={styles.feedback__title}>Comments:</h2>
             <article>
-              <textarea className={styles.feedback__comments} name="comments" onChange={this.handleCommentsChange} />
+              <textarea className={styles.feedback__comments} name="comments" value={this.state.comments} onChange={this.handleCommentsChange} />
             </article>
           </section>
           <input type="submit" value="Submit Feedback" />
@@ -112,16 +125,25 @@ class FeedbackForm extends Component {
   }
 }
 
-const mapState = state => {
-  return {
-    selectedTeam: state.selectedTeam
-  }
-};
+const mapAdd = state => ({
+  selectedTeam: state.selectedTeam
+});
+
+const mapEdit = (state, ownProps) => ({
+  name: 'edit',
+  displayName: 'EditFeedbackForm',
+  selectedTeam: state.selectedTeam,
+  currentFeedback: state.teamFeedback.find(elem => elem.id === +ownProps.match.params.feedbackId)
+});
 
 const mapDispatch = (dispatch) => ({
   submitTeamFeedback(teamId, feedback) {
     dispatch(postTeamFeedback(teamId, feedback));
+  },
+  editTeamFeedback(feedback) {
+    dispatch(putTeamFeedback(feedback));
   }
 });
 
-export default connect(mapState, mapDispatch)(FeedbackForm);
+export const AddFeedbackForm = connect(mapAdd, mapDispatch)(FeedbackForm);
+export const EditFeedbackForm = connect(mapEdit, mapDispatch)(FeedbackForm);

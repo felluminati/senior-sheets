@@ -7,7 +7,7 @@ export {default as Navbar} from './navbar';
 export {Login, Signup} from './auth-form';
 export {default as Main} from './main';
 export {SelectTeam, ChooseProject, SelectCohort, AddCohort, AddTeam, SelectView} from './select-components';
-export {default as FeedbackForm} from './feedback-form';
+export {AddFeedbackForm, EditFeedbackForm} from './feedback-form';
 export {default as ViewTeam} from './view-team';
 export {default as FeedbackCard} from './feedback-card';
 export {default as EmojiKey} from './emoji-key';

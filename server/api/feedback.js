@@ -32,6 +32,28 @@ router.delete('/:feedbackId', async (req, res, next) => {
     res.json('Successfully deleted!');
   }
   catch (err) {
-    next(err)
+    next(err);
+  }
+});
+
+router.put('/:feedbackId', async (req, res, next) => {
+  try {
+    const {feedbackId} = req.params;
+    const {date, teamwork, morale, comments} = req.body;
+    const updatedFeedback = await Feedback.update({
+      date,
+      teamwork,
+      morale,
+      comments
+    }, {
+      where: {
+        id: feedbackId
+      },
+      returning: true
+    });
+    res.json(updatedFeedback[1][0]);
+  }
+  catch (err) {
+    next(err);
   }
 })
