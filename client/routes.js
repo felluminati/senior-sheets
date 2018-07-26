@@ -29,7 +29,7 @@ class Routes extends Component {
                 <Route path="/feedback/add" component={AddFeedbackForm} />
                 <Route path="/feedback/edit/:feedbackId" component={EditFeedbackForm} />
                 <Route path="/feedback/view" component={ViewTeam} />
-                {/* <Route render={() => <Redirect to="/home" />} /> */}
+                <Route render={() => <Redirect to="/home" />} />
               </Switch>
             )}
             <Route component={Login} />
