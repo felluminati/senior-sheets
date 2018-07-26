@@ -27,7 +27,7 @@ class FeedbackCard extends Component {
 
 
   toggleComments = () => {
-    this.setState({ comments: !this.state.comments })
+    this.setState({ comments: !this.state.comments });
   }
   render() {
     const { feedback } = this.props;
@@ -47,7 +47,7 @@ class FeedbackCard extends Component {
             </div>
           </div>}
       </div>
-    )
+    );
   }
 }
 

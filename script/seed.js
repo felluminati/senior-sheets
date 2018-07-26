@@ -1,32 +1,13 @@
 'use strict';
 
 const db = require('../server/db');
-const {User, Cohort, Team} = require('../server/db/models');
+const {User} = require('../server/db/models');
 
 async function seed() {
   await db.sync({force: true});
   console.log('db synced!');
 
-  await User.create({email: 'admin@email.com', password: 'F3lluminaughtie$'});
-  await Promise.all([
-    Cohort.create({name: 1806}),
-    Cohort.create({name: 1808})
-  ]);
-  await Promise.all([
-    Team.create({teamName: 'Sample Team 1', cohortId: 1, project: 'graceShopper'}),
-    Team.create({teamName: 'Sample Team 2', cohortId: 1, project: 'graceShopper'}),
-    Team.create({teamName: 'Sample Team 3', cohortId: 1, project: 'graceShopper'}),
-    Team.create({teamName: 'Sample Team 1', cohortId: 2, project: 'graceShopper'}),
-    Team.create({teamName: 'Sample Team 2', cohortId: 2, project: 'graceShopper'}),
-    Team.create({teamName: 'Sample Team 3', cohortId: 2, project: 'graceShopper'}),
-    Team.create({teamName: 'Sample Team 1', cohortId: 1, project: 'capstone'}),
-    Team.create({teamName: 'Sample Team 2', cohortId: 1, project: 'capstone'}),
-    Team.create({teamName: 'Sample Team 3', cohortId: 1, project: 'capstone'}),
-    Team.create({teamName: 'Sample Team 1', cohortId: 2, project: 'capstone'}),
-    Team.create({teamName: 'Sample Team 2', cohortId: 2, project: 'capstone'}),
-    Team.create({teamName: 'Sample Team 3', cohortId: 2, project: 'capstone'}),
-  ]);
-
+  await User.create({email: 'admin@fullstackacademy.com', password: 'F3lluminaughtie$'});
   console.log(`seeded successfully`);
 }
 
