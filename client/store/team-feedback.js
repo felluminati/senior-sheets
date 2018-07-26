@@ -6,10 +6,12 @@ const initialState = [];
 const GET_TEAM_FEEDBACK = 'GET_TEAM_FEEDBACK';
 const ADD_TEAM_FEEDBACK = 'ADD_TEAM_FEEDBACK';
 const REMOVE_TEAM_FEEDBACK = 'REMOVE_TEAM_FEEDBACK';
+const EDIT_TEAM_FEEDBACK = 'EDIT_TEAM_FEEDBACK';
 
 const getTeamFeedback = (feedback) => ({type: GET_TEAM_FEEDBACK, feedback});
 const addTeamFeedback = (feedback) => ({type: ADD_TEAM_FEEDBACK, feedback});
 const removeTeamFeedback = (feedbackId) => ({type: REMOVE_TEAM_FEEDBACK, feedbackId});
+const editTeamFeedback = (feedback) => ({type: EDIT_TEAM_FEEDBACK, feedback});
 
 export const fetchTeamFeedback = (teamId) => async dispatch => {
   try {
@@ -40,6 +42,17 @@ export const deleteTeamFeedback = (feedbackId) => async dispatch => {
   catch (err){
     console.error(err);
   }
+};
+
+export const putTeamFeedback = (feedback) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/feedback/${feedback.id}`, feedback);
+    dispatch(editTeamFeedback(data));
+    history.push('/feedback/view');
+  }
+  catch (err) {
+    console.error(err);
+  }
 }
 
 
@@ -51,6 +64,8 @@ export default function (state = initialState, action) {
       return [...state, action.feedback];
     case REMOVE_TEAM_FEEDBACK:
       return state.filter(feedback => +feedback.id !== +action.feedbackId);
+    case EDIT_TEAM_FEEDBACK:
+      return state.map(feedback => (feedback.id === action.feedback.id ? action.feedback : feedback));
     default:
       return state;
   }

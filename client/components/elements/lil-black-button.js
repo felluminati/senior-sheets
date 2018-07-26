@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './elements.css';
 
-const LilRedButton = (props) => {
+const LilBlackButton = (props) => {
   return (
     <button
-      className={`${styles.smallButton__black} ${styles.lil__red}`}
+      className={`${styles.smallButton__black} ${styles.lil__black}`}
       onClick={props.clickHandler}
       name={props.name}>
       {props.innerText}
@@ -12,5 +12,5 @@ const LilRedButton = (props) => {
   );
 };
 
-LilRedButton.displayName = 'LilRedButton';
-export default LilRedButton;
+LilBlackButton.displayName = 'LilBlackButton';
+export default LilBlackButton;

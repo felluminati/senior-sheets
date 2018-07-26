@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styles from './feedback-card.css';
-import {LilRedButton} from './elements';
+import {LilRedButton, LilBlackButton} from './elements';
 import moment from 'moment';
+import history from '../history';
 
 const options = [
   '🤯',
@@ -40,7 +41,10 @@ class FeedbackCard extends Component {
         {this.state.comments &&
           <div className={styles.dropdown}>
             <div style={{whiteSpace: 'pre-wrap'}}>{feedback.comments}</div>
+            <div>
+            <LilBlackButton innerText="Edit" clickHandler={() => history.push(`/feedback/edit/${feedback.id}`)} />
             <LilRedButton innerText="x" clickHandler={() => this.props.deleteHandler(feedback.id)} />
+            </div>
           </div>}
       </div>
     )
