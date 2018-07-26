@@ -7,35 +7,29 @@ import styles from './index.css';
 
 class SelectCohort extends Component {
   state = {
-    cohortId: this.props.selectedCohort.id || '',
     showAddForm: false,
   }
 
   handleChange = (event) => {
-    this.setState({cohortId: event.target.value});
+    const cohortId = event.target.value;
+    const {cohorts, changeCohort} = this.props;
+    const selectedCohort = cohorts.find(cohort => cohort.id === +cohortId);
+    changeCohort(selectedCohort);
   }
 
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
   }
 
-  handleSubmit = () => {
-    const {cohortId} = this.state;
-    const {cohorts, changeCohort} = this.props;
-    if (!cohortId) return;
-    const selectedCohort = cohorts.find(cohort => cohort.id === +cohortId);
-    changeCohort(selectedCohort);
-  }
-
   render () {
-    const {cohorts} = this.props;
+    const {cohorts, selectedCohort} = this.props;
     return (
       <section className={styles.choiceWrapper}>
         <Title>Select Cohort</Title>
         {this.state.showAddForm ?
           <AddCohort toggleAddForm={this.toggleAddForm} /> :
           <article className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} value={this.state.cohortId}>
+            <select className={styles.option} onChange={this.handleChange} value={selectedCohort.id}>
               <option disabled value="">Select a Cohort</option>
               {
                 cohorts.length ? cohorts.map((cohort) => (
@@ -44,9 +38,8 @@ class SelectCohort extends Component {
               }
             </select>
             <SelectButtons
-              submit={this.handleSubmit}
               toggle={this.toggleAddForm}
-              leftSymbol="+"
+              rightSymbol="+"
             />
           </article>
         }

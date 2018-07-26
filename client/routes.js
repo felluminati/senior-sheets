@@ -25,9 +25,9 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             {isLoggedIn && (
               <Switch>
-                <Route path ="/home" component={Main} />
-                <Route path ="/feedback/add" component={FeedbackForm} />
-                <Route path ="/feedback/view" component={ViewTeam} />
+                <Route path="/home" component={Main} />
+                <Route path="/feedback/add" component={FeedbackForm} />
+                <Route path="/feedback/view" component={ViewTeam} />
                 <Route render={() => <Redirect to="/home" />} />
               </Switch>
             )}

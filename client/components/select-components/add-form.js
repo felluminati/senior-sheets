@@ -23,14 +23,18 @@ class AddForm extends Component {
     this.props.toggleAddForm();
   }
 
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter') this.handleSubmit();
+  }
+
   render () {
     return (
       <section className={styles.selectOrAdd}>
-        <input autoFocus className={styles.input} onChange={this.handleChange} value={this.state.input} />
+        <input autoFocus className={styles.input} onChange={this.handleChange} value={this.state.input} onKeyPress={this.handleKeyPress} />
         <SelectButtons
           submit={this.handleSubmit}
           toggle={this.props.toggleAddForm}
-          leftSymbol="x"
+          rightSymbol="x"
         />
       </section>
     );

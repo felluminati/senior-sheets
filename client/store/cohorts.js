@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {selectCohort} from './';
 
 const  GET_COHORTS = 'GET_COHORTS';
 const  ADD_COHORT = 'ADD_COHORT';
@@ -24,6 +25,7 @@ export const postCohort = (name) => async dispatch => {
   try {
     const {data} = await axios.post('/api/cohorts', {name: name});
     dispatch(addCohort(data));
+    dispatch(selectCohort(data));
   }
   catch (err) {
     console.error(err);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {selectTeam} from './';
 
 const initialState = [];
 
@@ -22,6 +23,7 @@ export const postTeam = (cohortId, project, teamName) => async dispatch => {
   try {
     const {data} = await axios.post('/api/teams', {cohortId, project, teamName});
     dispatch(addTeam(data));
+    dispatch(selectTeam(data));
   }
   catch (err) {
     console.error(err);
