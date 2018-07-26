@@ -7,17 +7,11 @@ import styles from './index.css';
 
 class SelectTeam extends Component {
   state = {
-    teamId: '',
     showAddForm: false,
   }
 
   handleChange = (event) => {
-    this.setState({teamId: event.target.value});
-  }
-
-  handleSubmit = () => {
-    const {teamId} = this.state;
-    if (!teamId) return;
+    const teamId = event.target.value;
     const foundTeam = this.props.teams.find(team => team.id === +teamId);
     this.props.changeTeam(foundTeam);
   }
@@ -39,7 +33,7 @@ class SelectTeam extends Component {
   }
 
   render () {
-    const {teams} = this.props;
+    const {teams, selectedTeam} = this.props;
     return (
       <section className={styles.choiceWrapper}>
         <Title>Select Team</Title>
@@ -47,7 +41,7 @@ class SelectTeam extends Component {
           this.state.showAddForm ?
           <AddTeam toggleAddForm={this.toggleAddForm} /> :
           <section className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} defaultValue="">
+            <select className={styles.option} onChange={this.handleChange} defaultValue={selectedTeam.id}>
               <option disabled value="">Select a Team</option>
               {
                 !!teams.length && teams.map((team) => (
@@ -55,9 +49,8 @@ class SelectTeam extends Component {
               }
             </select>
             <SelectButtons
-              submit={this.handleSubmit}
               toggle={this.toggleAddForm}
-              leftSymbol="+"
+              rightSymbol="+"
             />
           </section>
         }

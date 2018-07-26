@@ -22,14 +22,14 @@ class SelectCohort extends Component {
   }
 
   render () {
-    const {cohorts} = this.props;
+    const {cohorts, selectedCohort} = this.props;
     return (
       <section className={styles.choiceWrapper}>
         <Title>Select Cohort</Title>
         {this.state.showAddForm ?
           <AddCohort toggleAddForm={this.toggleAddForm} /> :
           <article className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} value={this.props.selectedCohort.id}>
+            <select className={styles.option} onChange={this.handleChange} value={selectedCohort.id}>
               <option disabled value="">Select a Cohort</option>
               {
                 cohorts.length ? cohorts.map((cohort) => (
