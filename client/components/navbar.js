@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {logout, resetStore} from '../store';
 import style from './navbar.css';
 
-const Navbar = ({handleClick, isLoggedIn, user}) => (
+const Navbar = ({handleClick, isLoggedIn, user, isAdmin}) => (
   <nav className={style.navbar}>
     <section className={style.navbar__left}>
       <img className={style.navbar__logo} src="/illuminati.png" />
@@ -14,13 +14,18 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
       <h1 className={style.navbar__title}>Senior Reporting</h1>
     </section>
     <section className={style.navbar__right}>
-      {isLoggedIn ? (
+      {isLoggedIn && isAdmin && (
         <article>
           <span> {user.email} </span>
           <Link to="/home"><div className={style.button}>Choose Team</div></Link>
+          <Link to="/home"><div className={style.button}>Users</div></Link>
           <a href="#" onClick={handleClick}><div className={style.button}>Logout</div></a>
         </article>
-      ) : (
+      )} {isLoggedIn && !isAdmin  && (
+        <article>
+          <a href="#" onClick={handleClick}><div className={style.button}>Logout</div></a>
+        </article>
+      )} {!isLoggedIn && !isAdmin && (
         <article>
           <Link to="/login"><div className={style.button}>Login</div></Link>
           <Link to="/signup"><div className={style.button}>Sign Up</div></Link>
@@ -35,6 +40,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
  */
 const mapState = (state) => ({
   isLoggedIn: !!state.user.id,
+  isAdmin: !!state.user.isAdmin,
   user: state.user
 });
 

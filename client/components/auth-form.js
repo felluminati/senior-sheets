@@ -43,7 +43,6 @@ class AuthForm extends Component {
           <article className={styles.login__container}>
             <input className={styles.input}  name="password" type="password" placeholder="Password" autoComplete={name === 'signup' ? 'new-password' : 'password'} />
           </article>
-          )}
           <article className={styles.login__container}>
             <BigBlackButton
             type="submit"
