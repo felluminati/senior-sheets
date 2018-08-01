@@ -14,7 +14,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props;
+    const {isLoggedIn, isAdmin} = this.props;
     return (
       <div>
         <Route path="/" component={Navbar} />
@@ -23,7 +23,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            {isLoggedIn && (
+            {isLoggedIn && isAdmin && (
               <Switch>
                 <Route path="/home" component={Main} />
                 <Route path="/feedback/add" component={AddFeedbackForm} />
@@ -45,7 +45,8 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = state => ({
-  isLoggedIn: !!state.user.id
+  isLoggedIn: !!state.user.id,
+  isAdmin: !!state.user.isAdmin
 });
 
 const mapDispatch = dispatch => ({
