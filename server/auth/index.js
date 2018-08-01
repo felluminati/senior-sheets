@@ -17,17 +17,9 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const {email, password, fellowAC} = req.body;
-    if (fellowAC !== process.env.FELLUMINATI_ACCESS_CODE) {
-      let err = new Error('Denied! You are obviously not a member of the Felluminati.');
-      err.name = 'FelluminatiDenied';
-      err.status = 403;
-      next(err);
-    }
-    else {
-      const user = await User.create({email, password});
-      req.login(user, err => (err ? next(err) : res.json(user)));
-    }
+    const {email, password} = req.body;
+    const user = await User.create({email, password});
+    req.login(user, err => (err ? next(err) : res.json(user)));
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists');
