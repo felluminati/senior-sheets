@@ -26,15 +26,9 @@ class AuthForm extends Component {
     const password = event.target.password.value.trim();
     const validate = this.validateEntries(email, password);
     const {name} = this.props;
+
     if (!validate) return;
-    if (this.props.name === 'signup') {
-      const fellowAC = event.target.fas.value.trim();
-      this.props.submitAuth(name, email, password, fellowAC);
-    }
-    else {
-      this.props.submitAuth(name, email, password);
-    }
-    history.push('/home');
+    this.props.submitAuth(name, email, password);
   }
   render () {
     const {name, displayName, error} = this.props;
@@ -49,12 +43,6 @@ class AuthForm extends Component {
           <article className={styles.login__container}>
             <input className={styles.input}  name="password" type="password" placeholder="Password" autoComplete={name === 'signup' ? 'new-password' : 'password'} />
           </article>
-          { name === 'signup' && (
-          <article className={styles.login__container}>
-            <input className={styles.input}  name="fas" type="password" placeholder="Felluminati Access Key" autoComplete="new-password" />
-          </article>
-
-          )}
           <article className={styles.login__container}>
             <BigBlackButton
             type="submit"
@@ -92,8 +80,8 @@ const mapSignup = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  submitAuth(formName, email, password, fac) {
-    dispatch(auth(email, password, formName, fac));
+  submitAuth(formName, email, password) {
+    dispatch(auth(email, password, formName));
   }
 });
 
