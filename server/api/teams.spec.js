@@ -7,12 +7,12 @@ const app = require('../index')
 const Cohort = db.model('cohort');
 const Team = db.model('team');
 
-describe('Feedback routes', () => {
+describe('Team routes', () => {
   beforeEach(() => {
     return db.sync({force: true});
   })
 
-  describe('/api/feedback/', () => {
+  describe('/api/teams/', () => {
     let graceShopperTeam;
     let capstoneTeam;
     let cohort;
@@ -23,7 +23,7 @@ describe('Feedback routes', () => {
       capstoneTeam = await Team.create({teamName: 'Team 2', project: 'capstone', cohortId: cohort.id});
     })
 
-    it('GET /api/feedback graceShopper team', async () => {
+    it('GET /api/teams graceShopper team', async () => {
       const res = await request(app)
         .get(`/api/teams?cohortId=${cohort.id}&project=graceShopper`)
         .expect(200);
@@ -33,7 +33,7 @@ describe('Feedback routes', () => {
       expect(res.body[0].project).to.be.equal('graceShopper');
     });
 
-    it('GET /api/feedback capstone team', async () => {
+    it('GET /api/teams capstone team', async () => {
       const res = await request(app)
         .get(`/api/teams?cohortId=${cohort.id}&project=capstone`)
         .expect(200);
@@ -43,7 +43,7 @@ describe('Feedback routes', () => {
       expect(res.body[0].project).to.be.equal('capstone');
     });
 
-    it('POST /api/feedback', async () => {
+    it('POST /api/teams', async () => {
       const res = await request(app)
         .post(`/api/teams`)
         .send({teamName: 'Team 3', project: 'graceShopper', cohortId: cohort.id})
@@ -54,11 +54,11 @@ describe('Feedback routes', () => {
       expect(res.body.project).to.be.equal('graceShopper');
     });
 
-    it('POST /api/feedback w/ invalid project', async () => {
+    it('POST /api/teams w/ invalid project', async () => {
       const res = await request(app)
         .post(`/api/teams`)
         .send({teamName: 'Team 4', project: 'hackathon', cohortId: cohort.id})
         .expect(404);
     });
-  }); // end describe('/api/feedback')
-}); // end describe('Feedback routes')
+  }); // end describe('/api/teams')
+}); // end describe('Team routes')
