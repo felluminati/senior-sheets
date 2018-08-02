@@ -36,7 +36,7 @@ class Routes extends Component {
             {isLoggedIn && !isAdmin && (
               <div>
                 <Title>Forbidden.</Title>
-                <Title>Go away or ask your favorite staff member for access!</Title>
+                <Title>Get outta here and ask your favorite staff member for access!</Title>
               </div>
             )}
             <Route component={Login} />
