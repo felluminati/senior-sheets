@@ -11,7 +11,7 @@ import styles from './components/index.css';
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    this.props.loadUser();
   }
 
   render() {
@@ -57,15 +57,15 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  loadInitialData() {
+  loadUser() {
     dispatch(me());
-    dispatch(fetchCohorts());
-  },
+  }
 });
 
 export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  loadUser: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };

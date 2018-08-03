@@ -30,6 +30,14 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
+  },
+  isGod: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  isDisabled: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   }
 });
 

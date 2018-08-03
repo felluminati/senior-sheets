@@ -1,24 +1,35 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
+import {fetchCohorts} from '../store';
 
-const Main = (props) => {
-  const {selectedCohort, project, selectedTeam} = props;
-  return (
-    <section>
-      <SelectCohort />
-      {!!selectedCohort.id && <ChooseProject /> }
-      {!!project.length && <SelectTeam /> }
-      {!!selectedTeam.id && <SelectView /> }
-    </section>
-  );
-};
+class Main extends Component {
+  componentDidMount() {
+    if (!this.props.cohorts) this.props.loadInitialData();
+  }
+  render() {
+    const {selectedCohort, project, selectedTeam} = this.props;
+    return (
+      <section>
+        <SelectCohort />
+        {!!selectedCohort.id && <ChooseProject /> }
+        {!!project.length && <SelectTeam /> }
+        {!!selectedTeam.id && <SelectView /> }
+      </section>
+    );
+  }
+}
 
-const mapState = ({selectedCohort, project, selectedTeam}) => ({
+const mapState = ({cohorts, selectedCohort, project, selectedTeam}) => ({
+  cohorts,
   selectedCohort,
   project,
   selectedTeam,
 });
+const mapDispatch = (dispatch) => ({
+  loadInitialData() {
+    dispatch(fetchCohorts());
+  },
+});
 
-Main.displayName = 'Main';
-export default connect(mapState)(Main);
+export default connect(mapState, mapDispatch)(Main);

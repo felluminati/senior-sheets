@@ -33,6 +33,22 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+const isAdmin = () => async (req, res, next) => {
+  try {
+    const user = await db.models.user.findById(req.user.id);
+    if (user.isAdmin) {
+      next();
+    }
+    else {
+      const err = new Error('You do not have admin access');
+      err.status = 403;
+      next(err);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'));
@@ -58,7 +74,7 @@ const createApp = () => {
 
   // auth and api routes
   app.use('/auth', require('./auth'));
-  app.use('/api', require('./api'));
+  app.use('/api', isAdmin(), require('./api'));
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));

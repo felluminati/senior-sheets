@@ -16,7 +16,6 @@ const Navbar = ({handleClick, isLoggedIn, user, isAdmin}) => (
     <section className={style.navbar__right}>
       {isLoggedIn && isAdmin && (
         <article>
-          <span> {user.email} </span>
           <Link to="/home"><div className={style.button}>Choose Team</div></Link>
           <Link to="/home"><div className={style.button}>Users</div></Link>
           <a href="#" onClick={handleClick}><div className={style.button}>Logout</div></a>

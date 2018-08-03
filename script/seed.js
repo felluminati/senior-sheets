@@ -7,7 +7,7 @@ async function seed() {
   await db.sync({force: true});
   console.log('db synced!');
 
-  await User.create({email: 'admin@fullstackacademy.com', password: 'F3lluminaughtie$'});
+  await User.create({email: 'admin@fullstackacademy.com', password: 'password', isAdmin: true, isGod: true});
   console.log(`seeded successfully`);
 }
 
