@@ -1,7 +1,9 @@
+const {User} = require('./db/models');
+
 module.exports = {
   isAdmin: () => async (req, res, next) => {
     try {
-      const user = await db.models.user.findById(req.user.id);
+      const user = await User.findById(req.user.id);
       if (user.isAdmin) {
         next();
       }
@@ -16,7 +18,7 @@ module.exports = {
   },
   isGod: () => async (req, res, next) => {
     try {
-      const user = await db.models.user.findById(req.user.id);
+      const user = await User.findById(req.user.id);
       if (user.isGod) {
         next();
       }

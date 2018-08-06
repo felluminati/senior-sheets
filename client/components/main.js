@@ -5,7 +5,7 @@ import {fetchCohorts} from '../store';
 
 class Main extends Component {
   componentDidMount() {
-    if (!this.props.cohorts) this.props.loadInitialData();
+    if (!this.props.cohorts.length) this.props.loadInitialData();
   }
   render() {
     const {selectedCohort, project, selectedTeam} = this.props;

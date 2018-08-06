@@ -11,3 +11,4 @@ export {AddFeedbackForm, EditFeedbackForm} from './feedback-form';
 export {default as ViewTeam} from './view-team';
 export {default as FeedbackCard} from './feedback-card';
 export {default as EmojiKey} from './emoji-key';
+export {default as Users} from './users';

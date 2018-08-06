@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {logout, resetStore} from '../store';
+import {logout} from '../store';
 import style from './navbar.css';
 
 const Navbar = ({handleClick, isLoggedIn, user, isAdmin}) => (
@@ -17,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, user, isAdmin}) => (
       {isLoggedIn && isAdmin && (
         <article>
           <Link to="/home"><div className={style.button}>Choose Team</div></Link>
-          <Link to="/home"><div className={style.button}>Users</div></Link>
+          <Link to="/users"><div className={style.button}>Users</div></Link>
           <a href="#" onClick={handleClick}><div className={style.button}>Logout</div></a>
         </article>
       )} {isLoggedIn && !isAdmin  && (
@@ -46,7 +46,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   handleClick() {
     dispatch(logout());
-    dispatch(resetStore());
   }
 });
 
