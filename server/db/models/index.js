@@ -7,6 +7,8 @@ Team.belongsTo(Cohort);
 Cohort.hasMany(Team);
 Team.hasMany(Feedback);
 Feedback.belongsTo(Team);
+User.belongsTo(Cohort);
+Cohort.hasMany(User);
 
 module.exports = {
   User,

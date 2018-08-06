@@ -5,7 +5,8 @@ module.exports = router;
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'isAdmin', 'isGod', 'isDisabled'],
+      include: ['cohort'],
     });
     res.json(users);
   } catch (err) {

@@ -10,6 +10,7 @@ const db = require('./db');
 const sessionStore = new SequelizeStore({db});
 const PORT = process.env.PORT || 8080;
 const app = express();
+const {isAdmin} = require('./gateways');
 const socketio = require('socket.io');
 module.exports = app;
 
@@ -32,22 +33,6 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
-
-const isAdmin = () => async (req, res, next) => {
-  try {
-    const user = await db.models.user.findById(req.user.id);
-    if (user.isAdmin) {
-      next();
-    }
-    else {
-      const err = new Error('You do not have admin access');
-      err.status = 403;
-      next(err);
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 
 const createApp = () => {
   // logging middleware

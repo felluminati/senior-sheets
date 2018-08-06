@@ -1,13 +1,15 @@
 'use strict';
 
 const db = require('../server/db');
-const {User} = require('../server/db/models');
+const {User, Cohort} = require('../server/db/models');
 
 async function seed() {
   await db.sync({force: true});
   console.log('db synced!');
 
-  await User.create({email: 'admin@fullstackacademy.com', password: 'password', isAdmin: true, isGod: true});
+  const user = await User.create({email: 'admin@fullstackacademy.com', password: 'password', isAdmin: true, isGod: true});
+  const cohort = await Cohort.create({name: 'staff'});
+  await user.setCohort(cohort);
   console.log(`seeded successfully`);
 }
 
