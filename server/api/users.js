@@ -13,3 +13,23 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.put('/:id/admin', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    await user.update({isAdmin: !user.isAdmin});
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/disable', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    await user.update({isDisabled: !user.isDisabled});
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
