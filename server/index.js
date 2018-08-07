@@ -10,6 +10,7 @@ const db = require('./db');
 const sessionStore = new SequelizeStore({db});
 const PORT = process.env.PORT || 8080;
 const app = express();
+const {isAdmin} = require('./gateways');
 const socketio = require('socket.io');
 module.exports = app;
 
@@ -58,7 +59,7 @@ const createApp = () => {
 
   // auth and api routes
   app.use('/auth', require('./auth'));
-  app.use('/api', require('./api'));
+  app.use('/api', isAdmin(), require('./api'));
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));

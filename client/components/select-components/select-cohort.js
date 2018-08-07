@@ -32,8 +32,11 @@ class SelectCohort extends Component {
             <select className={styles.option} onChange={this.handleChange} value={selectedCohort.id || ''}>
               <option disabled value="">Select a Cohort</option>
               {
-                cohorts.length ? cohorts.map((cohort) => (
-                <option key={cohort.id} value={cohort.id}>{cohort.name}</option>))
+                cohorts.length ? cohorts.map((cohort) => {
+                if (cohort.name !== 'staff') {
+                  return <option key={cohort.id} value={cohort.id}>{cohort.name}</option>;
+                }
+                })
                 : <option />
               }
             </select>

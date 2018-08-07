@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Login, Signup, Navbar, Main, AddFeedbackForm, EditFeedbackForm, ViewTeam} from './components';
+import {Login, Signup, Navbar, Main, AddFeedbackForm, EditFeedbackForm, ViewTeam, Users} from './components';
 import {Title} from './components/elements';
-import {me, fetchCohorts} from './store';
+import {me, fetchUsers} from './store';
 import styles from './components/index.css';
 /**
  * COMPONENT
@@ -30,6 +30,7 @@ class Routes extends Component {
                 <Route path="/feedback/add" component={AddFeedbackForm} />
                 <Route path="/feedback/edit/:feedbackId" component={EditFeedbackForm} />
                 <Route path="/feedback/view" component={ViewTeam} />
+                <Route path="/users" component={Users} />
                 <Route render={() => <Redirect to="/home" />} />
               </Switch>
             )}
@@ -53,19 +54,18 @@ class Routes extends Component {
  */
 const mapState = state => ({
   isLoggedIn: !!state.user.id,
-  isAdmin: !!state.user.isAdmin
+  isAdmin: !!state.user.isAdmin && !state.user.isDisabled
 });
 
 const mapDispatch = dispatch => ({
   loadInitialData() {
     dispatch(me());
-    dispatch(fetchCohorts());
-  },
+  }
 });
 
 export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };

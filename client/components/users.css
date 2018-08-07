@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  letter-spacing: .1rem;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+.article {
+  flex: 1;
+  align-self: flex-end;
+  margin: 0 1rem;
+}
+
+.toggle {
+  justify-self: flex-end;
+  margin: 0 1rem;
+  align-self: flex-end;
+}
