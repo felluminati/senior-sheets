@@ -54,7 +54,7 @@ class Routes extends Component {
  */
 const mapState = state => ({
   isLoggedIn: !!state.user.id,
-  isAdmin: !!state.user.isAdmin
+  isAdmin: !!state.user.isAdmin && !state.user.isDisabled
 });
 
 const mapDispatch = dispatch => ({
