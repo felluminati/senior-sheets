@@ -12,7 +12,6 @@ const mockStore = configureMockStore(middlewares);
 describe('Team-feedback reducer', () => {
   let store;
   let mockAxios;
-  let newDate;
 
   const initialState = [];
 
