@@ -4,12 +4,11 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
-import history from '../history';
 
 const middlewares = [thunkMiddleware];
 const mockStore = configureMockStore(middlewares);
 
-describe('Team-feedback reducer', () => {
+describe('Cohorts reducer', () => {
   let store;
   let mockAxios;
 
@@ -18,7 +17,6 @@ describe('Team-feedback reducer', () => {
   beforeEach(() => {
     mockAxios = new MockAdapter(axios);
     store = mockStore(initialState);
-    newDate = new Date();
   });
 
   afterEach(() => {
@@ -36,15 +34,14 @@ describe('Team-feedback reducer', () => {
     });
   });
 
-  // describe('postTeamFeedback', () => {
-  //   it('eventually dispatches the ADD TEAM FEEDBACK and pushes history to /feedback/view', async () => {
-  //     const fakeTeamFeedback = {comments: 'awesome team work', morale: 7, teamwork: 9, date: newDate};
-  //     mockAxios.onPost(`/api/feedback/1`).replyOnce(200, fakeTeamFeedback);
-  //     await store.dispatch(postTeamFeedback(1, fakeTeamFeedback));
-  //     const actions = store.getActions();
-  //     expect(actions[0].type).to.be.equal('ADD_TEAM_FEEDBACK');
-  //     expect(history.location.pathname).to.be.equal('/feedback/view');
-  //   });
-  // });
+  describe('postCohorts', () => {
+    it('eventually dispatches the ADD COHORT', async () => {
+      const fakeCohort = {name: '1806-FSA-CH'};
+      mockAxios.onPost(`/api/cohorts`).replyOnce(200, fakeCohort);
+      await store.dispatch(postCohort(1, fakeCohort));
+      const actions = store.getActions();
+      expect(actions[0].type).to.be.equal('ADD_COHORT');
+    });
+  });
 
 });
