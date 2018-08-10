@@ -4,28 +4,44 @@ import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
 import {fetchCohorts} from '../store';
 
 class Main extends Component {
+  state = {
+    selectedTeam: {},
+    selectedCohort: {},
+    project: '',
+  }
   componentDidMount() {
     if (!this.props.cohorts.length) this.props.loadInitialData();
   }
+
+  handleSelect = (data, selector) => {
+    if (selector === 'selectedCohort') {
+      this.setState({[selector]: data, selectedTeam: {}, project: ''});
+    }
+    if (selector === 'project') {
+      this.setState({[selector]: data, selectedTeam: {}});
+    }
+    else {
+      this.setState({[selector]: data});
+    }
+  }
+
   render() {
-    const {selectedCohort, project, selectedTeam} = this.props;
+    const {selectedCohort, project, selectedTeam} = this.state;
     return (
       <section>
-        <SelectCohort />
-        {!!selectedCohort.id && <ChooseProject /> }
-        {!!project.length && <SelectTeam /> }
-        {!!selectedTeam.id && <SelectView /> }
+        <SelectCohort handleSelect={this.handleSelect} />
+        {!!selectedCohort.id && <ChooseProject handleSelect={this.handleSelect} /> }
+        {!!project && <SelectTeam
+          handleSelect={this.handleSelect }
+          cohortId={selectedCohort.id} project={project}
+          selected={selectedTeam.id ? selectedTeam.id : ''} /> }
+        {!!selectedTeam.id && <SelectView handleSelect={this.handleSelect } /> }
       </section>
     );
   }
 }
 
-const mapState = ({cohorts, selectedCohort, project, selectedTeam}) => ({
-  cohorts,
-  selectedCohort,
-  project,
-  selectedTeam,
-});
+const mapState = ({cohorts}) => ({cohorts});
 const mapDispatch = (dispatch) => ({
   loadInitialData() {
     dispatch(fetchCohorts());

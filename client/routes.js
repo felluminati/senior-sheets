@@ -4,7 +4,7 @@ import {withRouter, Route, Switch, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Login, Signup, Navbar, Main, AddFeedbackForm, EditFeedbackForm, ViewTeam, Users} from './components';
 import {Title} from './components/elements';
-import {me, fetchUsers} from './store';
+import {me, fetchCohorts} from './store';
 import styles from './components/index.css';
 /**
  * COMPONENT
@@ -27,6 +27,7 @@ class Routes extends Component {
             {isLoggedIn && isAdmin && (
               <Switch>
                 <Route path="/home" component={Main} />
+                <Route path="/:cohortId/:projectName/:teamId/view" component={ViewTeam} />
                 <Route path="/feedback/add" component={AddFeedbackForm} />
                 <Route path="/feedback/edit/:feedbackId" component={EditFeedbackForm} />
                 <Route path="/feedback/view" component={ViewTeam} />
@@ -60,6 +61,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   loadInitialData() {
     dispatch(me());
+    dispatch(fetchCohorts());
   }
 });
 

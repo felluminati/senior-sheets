@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchTeams, selectTeam, resetTeam} from '../../store';
+import {fetchTeams, resetTeams} from '../../store';
 import {AddTeam} from '../';
 import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
@@ -13,7 +13,7 @@ class SelectTeam extends Component {
   handleChange = (event) => {
     const teamId = event.target.value;
     const foundTeam = this.props.teams.find(team => team.id === +teamId);
-    this.props.changeTeam(foundTeam);
+    this.props.handleSelect(foundTeam, 'selectedTeam');
   }
 
   toggleAddForm = () => {
@@ -21,9 +21,9 @@ class SelectTeam extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const {cohortId, project, selectedCohort, getTeamsAndReset} = this.props;
-    if (prevProps.project !== project || prevProps.selectedCohort !== selectedCohort) {
-      getTeamsAndReset(cohortId, project);
+    const {cohortId, project, getTeams} = this.props;
+    if (prevProps.project !== project || prevProps.cohortId !== cohortId) {
+      getTeams(cohortId, project);
     }
   }
 
@@ -33,15 +33,15 @@ class SelectTeam extends Component {
   }
 
   render () {
-    const {teams, selectedTeam} = this.props;
+    const {teams, cohortId, project, selected} = this.props;
     return (
       <section className={styles.choiceWrapper}>
         <Title>Select Team</Title>
         {
           this.state.showAddForm ?
-          <AddTeam toggleAddForm={this.toggleAddForm} /> :
+          <AddTeam toggleAddForm={this.toggleAddForm} cohortId={cohortId} project={project} /> :
           <section className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} value={selectedTeam.id || ''}>
+            <select className={styles.option} onChange={this.handleChange} value={selected}>
               <option disabled value="">Select a Team</option>
               {
                 !!teams.length && teams.map((team) => (
@@ -59,23 +59,14 @@ class SelectTeam extends Component {
   }
 }
 
-const mapState = ({project, teams, selectedCohort, selectedTeam}) => ({
-  project,
-  teams,
-  selectedCohort,
-  selectedTeam,
-  cohortId: selectedCohort.id,
-});
+const mapState = ({teams}) => ({teams});
 const mapDispatch = (dispatch) => ({
-  changeTeam(team) {
-    dispatch(selectTeam(team));
-  },
   getTeams(cohortId, project) {
     dispatch(fetchTeams(cohortId, project));
   },
   getTeamsAndReset(cohortId, project) {
+    dispatch(resetTeams());
     dispatch(fetchTeams(cohortId, project));
-    dispatch(resetTeam());
   },
 });
 
