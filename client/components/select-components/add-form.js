@@ -41,17 +41,13 @@ class AddForm extends Component {
   }
 }
 
-const mapCohort = ({project, selectedCohort}) => ({
-  project,
+const mapCohort = () => ({
   name: 'cohort',
   displayName: 'AddCohort',
-  cohortId: selectedCohort.id,
 });
-const mapTeam = ({project, selectedCohort}) => ({
-  project,
+const mapTeam = () => ({
   name: 'team',
   displayName: 'AddTeam',
-  cohortId: selectedCohort.id,
 });
 
 const mapDispatch = (dispatch) => ({

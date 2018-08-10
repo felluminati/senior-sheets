@@ -53,14 +53,8 @@ class SelectCohort extends Component {
   }
 }
 
-const mapState = ({cohorts, selectedCohort}) => ({
+const mapState = ({cohorts}) => ({
   cohorts,
-  selectedCohort,
-});
-const mapDispatch = (dispatch) => ({
-  changeCohort(cohortName) {
-    dispatch(selectCohort(cohortName));
-  }
 });
 
-export default connect(mapState, mapDispatch)(SelectCohort);
+export default connect(mapState, null)(SelectCohort);
