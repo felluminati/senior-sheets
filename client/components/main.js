@@ -4,17 +4,29 @@ import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
 import {fetchCohorts} from '../store';
 
 class Main extends Component {
+  state = {
+    selectedTeam: {},
+    selectedCohort: {},
+    project: '',
+  }
   componentDidMount() {
     if (!this.props.cohorts.length) this.props.loadInitialData();
   }
+
+  handleSelect = (data, selector) => {
+    this.setState({[selector]: data});
+  }
+
   render() {
-    const {selectedCohort, project, selectedTeam} = this.props;
+    // const {selectedCohort, project, selectedTeam} = this.props;
+    console.log(this.state);
+    const {selectedCohort, project, selectedTeam} = this.state;
     return (
       <section>
-        <SelectCohort />
-        {!!selectedCohort.id && <ChooseProject /> }
-        {!!project.length && <SelectTeam /> }
-        {!!selectedTeam.id && <SelectView /> }
+        <SelectCohort handleSelect={this.handleSelect} />
+        {!!selectedCohort.id && <ChooseProject handleSelect={this.handleSelect} /> }
+        {!!project.length && <SelectTeam handleSelect={this.handleSelect } /> }
+        {!!selectedTeam.id && <SelectView handleSelect={this.handleSelect } /> }
       </section>
     );
   }
@@ -22,9 +34,9 @@ class Main extends Component {
 
 const mapState = ({cohorts, selectedCohort, project, selectedTeam}) => ({
   cohorts,
-  selectedCohort,
   project,
   selectedTeam,
+  selectedCohort
 });
 const mapDispatch = (dispatch) => ({
   loadInitialData() {

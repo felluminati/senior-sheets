@@ -8,13 +8,15 @@ import styles from './index.css';
 class SelectCohort extends Component {
   state = {
     showAddForm: false,
+    cohortId: ''
   }
 
   handleChange = (event) => {
-    const cohortId = event.target.value;
-    const {cohorts, changeCohort} = this.props;
-    const selectedCohort = cohorts.find(cohort => cohort.id === +cohortId);
-    changeCohort(selectedCohort);
+    const cohortId = +event.target.value;
+    const {cohorts} = this.props;
+    const selectedCohort = cohorts.find(cohort => cohort.id === cohortId);
+    this.setState({cohortId});
+    this.props.handleSelect(selectedCohort, 'selectedCohort');
   }
 
   toggleAddForm = () => {
@@ -22,14 +24,14 @@ class SelectCohort extends Component {
   }
 
   render () {
-    const {cohorts, selectedCohort} = this.props;
+    const {cohorts} = this.props;
     return (
       <section className={styles.choiceWrapper}>
         <Title>Select Cohort</Title>
         {this.state.showAddForm ?
           <AddCohort toggleAddForm={this.toggleAddForm} /> :
           <article className={styles.selectOrAdd}>
-            <select className={styles.option} onChange={this.handleChange} value={selectedCohort.id || ''}>
+            <select className={styles.option} onChange={this.handleChange} value={this.state.cohortId}>
               <option disabled value="">Select a Cohort</option>
               {
                 cohorts.length ? cohorts.map((cohort) => {
