@@ -16,6 +16,11 @@ class SelectTeam extends Component {
     this.props.handleSelect(foundTeam, 'selectedTeam');
   }
 
+  setNewTeam = (teamId) => {
+    const selectedTeam = this.props.teams.find(team => team.id === +teamId);
+    this.props.handleSelect(selectedTeam, 'selectedTeam');
+  }
+
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
   }
@@ -39,7 +44,7 @@ class SelectTeam extends Component {
         <Title>Select Team</Title>
         {
           this.state.showAddForm ?
-          <AddTeam toggleAddForm={this.toggleAddForm} cohortId={cohortId} project={project} /> :
+          <AddTeam toggleAddForm={this.toggleAddForm} cohortId={cohortId} project={project} setNewTeam={this.setNewTeam} /> :
           <section className={styles.selectOrAdd}>
             <select className={styles.option} onChange={this.handleChange} value={selected}>
               <option disabled value="">Select a Team</option>

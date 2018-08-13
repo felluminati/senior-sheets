@@ -24,6 +24,7 @@ export const postCohort = (name) => async dispatch => {
   try {
     const {data} = await axios.post('/api/cohorts', {name: name});
     dispatch(addCohort(data));
+    return data;
   }
   catch (err) {
     console.error(err);
