@@ -19,6 +19,13 @@ class SelectCohort extends Component {
     this.props.handleSelect(selectedCohort, 'selectedCohort');
   }
 
+  setNewCohort = (cohortId) => {
+    const {cohorts} = this.props;
+    const selectedCohort = cohorts.find(cohort => cohort.id === cohortId);
+    this.setState({cohortId});
+    this.props.handleSelect(selectedCohort, 'selectedCohort');
+  }
+
   toggleAddForm = () => {
     this.setState({showAddForm: !this.state.showAddForm});
   }
@@ -29,7 +36,7 @@ class SelectCohort extends Component {
       <section className={styles.choiceWrapper}>
         <Title>Select Cohort</Title>
         {this.state.showAddForm ?
-          <AddCohort toggleAddForm={this.toggleAddForm} /> :
+          <AddCohort toggleAddForm={this.toggleAddForm} setNewCohort={this.setNewCohort} /> :
           <article className={styles.selectOrAdd}>
             <select className={styles.option} onChange={this.handleChange} value={this.state.cohortId}>
               <option disabled value="">Select a Cohort</option>

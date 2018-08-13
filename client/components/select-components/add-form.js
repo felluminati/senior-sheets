@@ -13,13 +13,17 @@ class AddForm extends Component {
     this.setState({input: event.target.value});
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const {input} = this.state;
     if (!input) return;
     const {cohortId, project, name} = this.props;
-    name === 'team' ?
-      this.props.addNewTeam(cohortId, project, input)
-      : this.props.addNewCohort(input);
+    if (name === 'team'){
+      let newTeam = await this.props.addNewTeam(cohortId, project, input);
+      this.props.setNewTeam(newTeam.id);
+    } else {
+      let newCohort = await this.props.addNewCohort(input);
+      this.props.setNewCohort(newCohort.id);
+    }
     this.props.toggleAddForm();
   }
 
@@ -51,11 +55,13 @@ const mapTeam = () => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  addNewCohort(name) {
-    dispatch(postCohort(name));
+  async addNewCohort(name) {
+    let data = await dispatch(postCohort(name));
+    return data;
   },
-  addNewTeam(cohortId, project, name) {
-    dispatch(postTeam(cohortId, project, name));
+  async addNewTeam(cohortId, project, name) {
+    let data = await dispatch(postTeam(cohortId, project, name));
+    return data;
   }
 });
 

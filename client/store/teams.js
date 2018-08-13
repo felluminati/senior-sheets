@@ -25,6 +25,7 @@ export const postTeam = (cohortId, project, teamName) => async dispatch => {
   try {
     const {data} = await axios.post('/api/teams', {cohortId, project, teamName});
     dispatch(addTeam(data));
+    return data;
   }
   catch (err) {
     console.error(err);
