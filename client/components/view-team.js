@@ -9,8 +9,7 @@ import {Link} from 'react-router-dom';
 
 class ViewTeam extends Component {
   componentDidMount(){
-    console.log(this.props.match.params);
-    this.props.getTeamFeedback(this.props.teamId);
+    this.props.getTeamFeedback(this.props.match.params.teamId);
   }
 
   deleteHandler = (feedbackId) => {
@@ -18,11 +17,11 @@ class ViewTeam extends Component {
   }
 
   render() {
-    console.log(this.props.teamFeedback);
+    console.log('yo', this.props.teamFeedback);
     return (
       <div className={styles.view_team_container}>
         <div>
-          <Title>{this.props.selectedTeam.teamName}</Title>
+          <Title>Team Name</Title>
           <div className={styles.container}>
             <div className={styles.date}>Date</div>
             <div className={styles.score}>Teamwork</div>
@@ -50,8 +49,6 @@ class ViewTeam extends Component {
 const mapState = ({teams, selectedTeam, teamFeedback}) => {
   return {
     teams,
-    teamId: selectedTeam.id,
-    selectedTeam: selectedTeam,
     teamFeedback: teamFeedback.sort((a, b) => new Date(b.date) - new Date(a.date))
   };
 };
