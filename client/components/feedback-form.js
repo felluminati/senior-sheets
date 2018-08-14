@@ -33,7 +33,7 @@ class FeedbackForm extends Component {
       this.props.editTeamFeedback({id: this.props.currentFeedback.id, teamwork, morale, date, comments});
     }
     else {
-      this.props.submitTeamFeedback(this.props.selectedTeam.id, { teamwork, morale, date, comments });
+      this.props.submitTeamFeedback(+this.teamId, { teamwork, morale, date, comments });
     }
   }
 
@@ -43,6 +43,7 @@ class FeedbackForm extends Component {
       const {teamwork, morale, date, comments} = currentFeedback;
       this.setState({teamwork, morale, date: moment(date).format('YYYY-M-D'), comments });
     }
+    this.teamId = this.props.match.params.teamId;
   }
 
   render() {
@@ -126,13 +127,12 @@ class FeedbackForm extends Component {
 }
 
 const mapAdd = state => ({
-  selectedTeam: state.selectedTeam
+
 });
 
 const mapEdit = (state, ownProps) => ({
   name: 'edit',
   displayName: 'EditFeedbackForm',
-  selectedTeam: state.selectedTeam,
   currentFeedback: state.teamFeedback.find(elem => elem.id === +ownProps.match.params.feedbackId)
 });
 
