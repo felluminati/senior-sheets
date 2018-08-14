@@ -27,7 +27,7 @@ export const postTeamFeedback = (teamId, feedback) => async dispatch => {
   try {
     const {data} = await axios.post(`/api/feedback/${teamId}`, feedback);
     dispatch(addTeamFeedback(data));
-    history.push('/feedback/view');
+    history.push(`/feedback/view/${teamId}`);
   }
   catch (err) {
     console.error(err);
