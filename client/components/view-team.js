@@ -9,7 +9,8 @@ import {Link} from 'react-router-dom';
 
 class ViewTeam extends Component {
   componentDidMount(){
-    this.props.getTeamFeedback(this.props.match.params.teamId);
+    this.teamId = this.props.match.params.teamId;
+    this.props.getTeamFeedback(this.teamId);
   }
 
   deleteHandler = (feedbackId) => {
@@ -17,7 +18,6 @@ class ViewTeam extends Component {
   }
 
   render() {
-    console.log('yo', this.props.teamFeedback);
     return (
       <div className={styles.view_team_container}>
         <div>
@@ -36,7 +36,7 @@ class ViewTeam extends Component {
             );
           })}
         </div>
-        <Link to="/feedback/add">
+        <Link to={`/feedback/add/${this.teamId}`}>
           <BigRedButton
           innerText="Leave Feedback" />
         </Link>

@@ -35,7 +35,7 @@ class Main extends Component {
           handleSelect={this.handleSelect }
           cohortId={selectedCohort.id} project={project}
           selected={selectedTeam.id ? selectedTeam.id : ''} /> }
-        {!!selectedTeam.id && <SelectView handleSelect={this.handleSelect } /> }
+        {!!selectedTeam.id && <SelectView teamId={selectedTeam.id} handleSelect={this.handleSelect } /> }
       </section>
     );
   }
