@@ -10,6 +10,10 @@ import {Link} from 'react-router-dom';
 class ViewTeam extends Component {
   componentDidMount(){
     this.teamId = this.props.match.params.teamId;
+    this.project = this.props.match.params.project;
+    this.cohort = this.props.match.params.cohort;
+    const cohortId = this.props.cohorts.find(cohort => cohort.name === this.cohort);
+    // console.log('cohort', this.props.cohort);
     this.props.getTeamFeedback(this.teamId);
   }
 
@@ -36,7 +40,7 @@ class ViewTeam extends Component {
             );
           })}
         </div>
-        <Link to={`/feedback/add/${this.teamId}`}>
+        <Link to={`/feedback/${this.cohort}/${this.project}/${this.teamId}/add`}>
           <BigRedButton
           innerText="Leave Feedback" />
         </Link>
@@ -46,10 +50,11 @@ class ViewTeam extends Component {
   }
 }
 
-const mapState = ({teams, selectedTeam, teamFeedback}) => {
+const mapState = ({teams, selectedTeam, teamFeedback, cohorts}) => {
   return {
     teams,
-    teamFeedback: teamFeedback.sort((a, b) => new Date(b.date) - new Date(a.date))
+    teamFeedback: teamFeedback.sort((a, b) => new Date(b.date) - new Date(a.date)),
+    cohorts,
   };
 };
 
@@ -59,7 +64,7 @@ const mapDispatch = (dispatch) => ({
   },
   removeTeamFeedback(feedbackId) {
     dispatch(deleteTeamFeedback(feedbackId));
-  }
+  },
 });
 
 export default connect(mapState, mapDispatch)(ViewTeam);

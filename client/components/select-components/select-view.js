@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 
 const SelectView = (props) => (
   <section className={styles.choiceWrapper}>
-    <Link to={`/feedback/view/${props.teamId}`}>
+    <Link to={`/feedback/${props.cohort}/${props.project}/${props.teamId}/view`}>
       <BigBlackButton
       innerText="View Team" />
     </Link>
-    <Link to={`/feedback/add/${props.teamId}`}>
+    <Link to={`/feedback/${props.cohort}/${props.project}/${props.teamId}/add`}>
       <BigRedButton
       innerText="Leave Feedback" />
     </Link>
