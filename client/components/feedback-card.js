@@ -31,6 +31,7 @@ class FeedbackCard extends Component {
   }
   render() {
     const { feedback } = this.props;
+    const {cohort, teamId, project} = this.props.teamInfo;
     return (
       <div className={styles.card} >
         <div className={styles.container} key={feedback.id} onClick={this.toggleComments} >
@@ -42,7 +43,7 @@ class FeedbackCard extends Component {
           <div className={styles.dropdown}>
             <div style={{whiteSpace: 'pre-wrap'}}>{feedback.comments}</div>
             <div>
-            <LilBlackButton innerText="Edit" clickHandler={() => history.push(`/feedback/edit/${feedback.id}`)} />
+            <LilBlackButton innerText="Edit" clickHandler={() => history.push(`/feedback/${cohort}/${project}/${teamId}/${feedback.id}/edit`)} />
             <LilRedButton innerText="x" clickHandler={() => this.props.deleteHandler(feedback.id)} />
             </div>
           </div>}

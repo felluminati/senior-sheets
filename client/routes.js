@@ -28,9 +28,9 @@ class Routes extends Component {
               <Switch>
                 <Route path="/home" component={Main} />
                 <Route path="/:cohortId/:projectName/:teamId/view" component={ViewTeam} />
-                <Route path="/feedback/add/:teamId" component={AddFeedbackForm} />
-                <Route path="/feedback/edit/:feedbackId" component={EditFeedbackForm} />
-                <Route path="/feedback/view/:teamId" component={ViewTeam} />
+                <Route path="/feedback/:cohort/:project/:teamId/add" component={AddFeedbackForm} />
+                <Route path="/feedback/:cohort/:project/:teamId/:feedbackId/edit" component={EditFeedbackForm} />
+                <Route path="/feedback/:cohort/:project/:teamId/view" component={ViewTeam} />
                 <Route path="/users" component={Users} />
                 <Route render={() => <Redirect to="/home" />} />
               </Switch>

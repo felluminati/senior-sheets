@@ -45,3 +45,14 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:teamId', async (req, res, next) => {
+  try {
+    const {teamId} = req.params;
+    const team = await Team.findById(teamId);
+    res.json(team);
+  }
+  catch (err) {
+    next(err);
+  }
+});
