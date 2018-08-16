@@ -7,8 +7,9 @@ import users from './users';
 import cohorts from './cohorts';
 import teams from './teams';
 import teamFeedback from './team-feedback';
+import selectedTeam from './select-team';
 
-const combinedReducer = combineReducers({user, users, cohorts, teams, teamFeedback});
+const combinedReducer = combineReducers({user, users, cohorts, teams, teamFeedback, selectedTeam});
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -23,3 +24,4 @@ export * from './users';
 export * from './cohorts';
 export * from './teams';
 export * from './team-feedback';
+export * from './select-team';

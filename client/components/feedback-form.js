@@ -30,10 +30,10 @@ class FeedbackForm extends Component {
     event.preventDefault();
     const { teamwork, morale, date, comments } = this.state;
     if (this.props.name === 'edit'){
-      this.props.editTeamFeedback({id: this.props.currentFeedback.id, teamwork, morale, date, comments});
+      this.props.editTeamFeedback({id: this.props.currentFeedback.id, teamwork, morale, date, comments}, this.teamInfo);
     }
     else {
-      this.props.submitTeamFeedback(+this.teamId, { teamwork, morale, date, comments });
+      this.props.submitTeamFeedback(this.teamInfo, { teamwork, morale, date, comments });
     }
   }
 
@@ -44,6 +44,9 @@ class FeedbackForm extends Component {
       this.setState({teamwork, morale, date: moment(date).format('YYYY-M-D'), comments });
     }
     this.teamId = this.props.match.params.teamId;
+    this.project = this.props.match.params.project;
+    this.cohort = this.props.match.params.cohort;
+    this.teamInfo = {teamId: this.teamId, project: this.project, cohort: this.cohort};
   }
 
   render() {
@@ -137,11 +140,11 @@ const mapEdit = (state, ownProps) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  submitTeamFeedback(teamId, feedback) {
-    dispatch(postTeamFeedback(teamId, feedback));
+  submitTeamFeedback(teamInfo, feedback) {
+    dispatch(postTeamFeedback(teamInfo, feedback));
   },
-  editTeamFeedback(feedback) {
-    dispatch(putTeamFeedback(feedback));
+  editTeamFeedback(feedback, teamInfo) {
+    dispatch(putTeamFeedback(feedback, teamInfo));
   }
 });
 

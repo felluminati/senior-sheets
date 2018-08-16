@@ -4,16 +4,14 @@ import styles from './feedback-card.css';
 import { FeedbackCard } from './index';
 import { connect } from 'react-redux';
 import EmojiKey from './emoji-key';
-import { fetchTeamFeedback, deleteTeamFeedback } from '../store';
+import { fetchTeamFeedback, deleteTeamFeedback, fetchTeam } from '../store';
 import {Link} from 'react-router-dom';
 
 class ViewTeam extends Component {
   componentDidMount(){
-    this.teamId = this.props.match.params.teamId;
-    this.project = this.props.match.params.project;
-    this.cohort = this.props.match.params.cohort;
-    const cohortId = this.props.cohorts.find(cohort => cohort.name === this.cohort);
-    // console.log('cohort', this.props.cohort);
+    if (!this.props.selectedTeam.id){
+      this.props.getTeam(this.teamId);
+    }
     this.props.getTeamFeedback(this.teamId);
   }
 
@@ -22,10 +20,14 @@ class ViewTeam extends Component {
   }
 
   render() {
+    this.teamId = this.props.match.params.teamId;
+    this.project = this.props.match.params.project;
+    this.cohort = this.props.match.params.cohort;
+    this.teamInfo = {teamId: this.teamId, project: this.project, cohort: this.cohort};
     return (
       <div className={styles.view_team_container}>
         <div>
-          <Title>Team Name</Title>
+          <Title>{this.props.selectedTeam.teamName}</Title>
           <div className={styles.container}>
             <div className={styles.date}>Date</div>
             <div className={styles.score}>Teamwork</div>
@@ -34,6 +36,7 @@ class ViewTeam extends Component {
           {this.props.teamFeedback.map(feedback => {
             return (
               <FeedbackCard
+                teamInfo={this.teamInfo}
                 key={feedback.id}
                 feedback={feedback}
                 deleteHandler={this.deleteHandler} />
@@ -55,6 +58,7 @@ const mapState = ({teams, selectedTeam, teamFeedback, cohorts}) => {
     teams,
     teamFeedback: teamFeedback.sort((a, b) => new Date(b.date) - new Date(a.date)),
     cohorts,
+    selectedTeam
   };
 };
 
@@ -65,6 +69,9 @@ const mapDispatch = (dispatch) => ({
   removeTeamFeedback(feedbackId) {
     dispatch(deleteTeamFeedback(feedbackId));
   },
+  getTeam(teamId){
+    dispatch(fetchTeam(teamId));
+  }
 });
 
 export default connect(mapState, mapDispatch)(ViewTeam);

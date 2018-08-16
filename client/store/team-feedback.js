@@ -23,11 +23,11 @@ export const fetchTeamFeedback = (teamId) => async dispatch => {
   }
 };
 
-export const postTeamFeedback = (teamId, feedback) => async dispatch => {
+export const postTeamFeedback = (teamInfo, feedback) => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/feedback/${teamId}`, feedback);
+    const {data} = await axios.post(`/api/feedback/${teamInfo.teamId}`, feedback);
     dispatch(addTeamFeedback(data));
-    history.push(`/feedback/view/${teamId}`);
+    history.push(`/feedback/${teamInfo.cohort}/${teamInfo.project}/${teamInfo.teamId}/view`);
   }
   catch (err) {
     console.error(err);
@@ -44,11 +44,12 @@ export const deleteTeamFeedback = (feedbackId) => async dispatch => {
   }
 };
 
-export const putTeamFeedback = (feedback) => async dispatch => {
+export const putTeamFeedback = (feedback, teamInfo) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/feedback/${feedback.id}`, feedback);
     dispatch(editTeamFeedback(data));
-    history.push('/feedback/view');
+    const {cohort, project, teamId} = teamInfo;
+    history.push(`/feedback/${cohort}/${project}/${teamId}/view`);
   }
   catch (err) {
     console.error(err);

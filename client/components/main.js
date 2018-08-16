@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {SelectCohort, ChooseProject, SelectTeam, SelectView} from './index';
-import {fetchCohorts} from '../store';
+import {fetchCohorts, selectTeam} from '../store';
 
 class Main extends Component {
   state = {
@@ -17,11 +17,12 @@ class Main extends Component {
     if (selector === 'selectedCohort') {
       this.setState({[selector]: data, selectedTeam: {}, project: ''});
     }
-    if (selector === 'project') {
+    else if (selector === 'project') {
       this.setState({[selector]: data, selectedTeam: {}});
     }
     else {
       this.setState({[selector]: data});
+      this.props.setSelectedTeam(data);
     }
   }
 
@@ -46,6 +47,9 @@ const mapDispatch = (dispatch) => ({
   loadInitialData() {
     dispatch(fetchCohorts());
   },
+  setSelectedTeam(team) {
+    dispatch(selectTeam(team));
+  }
 });
 
 export default connect(mapState, mapDispatch)(Main);
