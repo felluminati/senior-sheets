@@ -40,9 +40,8 @@ describe('Teams reducer', () => {
       mockAxios.onPost(`/api/teams`).replyOnce(200, fakeTeam);
       await store.dispatch(postTeam(1, 'graceShopper', 'fake team'));
       const actions = store.getActions();
-      expect(actions.length).to.be.equal(2);
+      expect(actions.length).to.be.equal(1);
       expect(actions[0].type).to.be.equal('ADD_TEAM');
-      expect(actions[1].type).to.be.equal('SELECT_TEAM');
     });
   });
 

@@ -38,13 +38,15 @@ describe('Team-feedback reducer', () => {
   });
 
   describe('postTeamFeedback', () => {
-    it('eventually dispatches the ADD TEAM FEEDBACK and pushes history to /feedback/view', async () => {
+    it('eventually dispatches the ADD TEAM FEEDBACK and pushes history to correct route', async () => {
       const fakeTeamFeedback = {comments: 'awesome team work', morale: 7, teamwork: 9, date: newDate};
+      const fakeTeamInfo = {project: 'graceShopper', cohort: '1806', teamId: 1};
       mockAxios.onPost(`/api/feedback/1`).replyOnce(200, fakeTeamFeedback);
-      await store.dispatch(postTeamFeedback(1, fakeTeamFeedback));
+      await store.dispatch(postTeamFeedback(fakeTeamInfo, fakeTeamFeedback));
       const actions = store.getActions();
+      const {project, cohort, teamId} = fakeTeamInfo;
       expect(actions[0].type).to.be.equal('ADD_TEAM_FEEDBACK');
-      expect(history.location.pathname).to.be.equal('/feedback/view');
+      expect(history.location.pathname).to.be.equal(`/feedback/${cohort}/${project}/${teamId}/view`);
     });
   });
 
@@ -58,14 +60,16 @@ describe('Team-feedback reducer', () => {
     });
   });
 
-  describe('pitTeamFeedback', () => {
+  describe('putTeamFeedback', () => {
     it('eventually dispatches the EDIT TEAM FEEDBACK and pushes history to /feedback/view', async () => {
       const fakeTeamFeedback = {id: 1, comments: 'awesome team work', morale: 7, teamwork: 9, date: newDate};
+      const fakeTeamInfo = {project: 'graceShopper', cohort: '1806', teamId: 1};
+      const {project, cohort, teamId} = fakeTeamInfo;
       mockAxios.onPut(`/api/feedback/1`).replyOnce(200, fakeTeamFeedback);
-      await store.dispatch(putTeamFeedback(fakeTeamFeedback));
+      await store.dispatch(putTeamFeedback(fakeTeamFeedback, fakeTeamInfo));
       const actions = store.getActions();
       expect(actions[0].type).to.be.equal('EDIT_TEAM_FEEDBACK');
-      expect(history.location.pathname).to.be.equal('/feedback/view');
+      expect(history.location.pathname).to.be.equal(`/feedback/${cohort}/${project}/${teamId}/view`);
     });
   });
 
