@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styles from './users.css';
 import { connect } from 'react-redux';
-import {changeAdmin, changeDisabled} from '../store';
+import {changeAdmin, changeDisabled, changeGodPowers} from '../store';
 import Switch from 'react-switch';
 
 class UserCard extends Component {
@@ -12,7 +12,7 @@ class UserCard extends Component {
     this.setState({visible: !this.state.visible});
   }
   render() {
-    const {user, isGod, toggleAdmin, toggleDisabled} = this.props;
+    const {user, isGod, toggleAdmin, toggleDisabled, toggleGodPowers} = this.props;
     return (
       <section key={user.id} className={styles.container}>
       <article className={styles.email}>
@@ -39,8 +39,8 @@ class UserCard extends Component {
               <article className={styles.toggle}>
               <span className={styles.label}>IsGod:</span>
               <Switch
-                checked={user.isDisabled}
-                onChange={() => toggleDisabled(user.id)}
+                checked={user.isGod}
+                onChange={() => toggleGodPowers(user.id)}
               />
               </article>
           }
@@ -71,6 +71,9 @@ const mapDispatch = (dispatch) => ({
   },
   toggleDisabled(id) {
     dispatch(changeDisabled(id));
+  },
+  toggleGodPowers(id) {
+    dispatch(changeGodPowers(id));
   }
 });
 
