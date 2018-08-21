@@ -44,4 +44,15 @@ describe('Users reducer', () => {
       expect(actions[0].user.isAdmin).to.be.equal(false);
     });
   });
+
+  describe('changeDisabled', () => {
+    it('eventually dispatch the TOGGLE_DISABLED action', async () => {
+      const fakeUser = {id: 1, email: 'cody@email.com', isAdmin: true, isGod: false, isDisabled: false, cohort: null};
+      mockAxios.onPut(`/api/users/1/disable`).replyOnce(200, {...fakeUser, isDisabled: !fakeUser.isDisabled});
+      await store.dispatch(changeDisabled(1));
+      const actions = store.getActions();
+      expect(actions[0].type).to.be.equal('TOGGLE_DISABLED');
+      expect(actions[0].user.isDisabled).to.be.equal(true);
+    });
+  });
 });
