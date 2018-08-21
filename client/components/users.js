@@ -9,7 +9,9 @@ class Users extends Component {
    this.props.getUsers();
   }
   render() {
-    const {users, toggleAdmin, toggleDisabled} = this.props;
+    const {users, enabledUsers, disabledUsers, toggleAdmin, toggleDisabled} = this.props;
+    console.log('enabled', enabledUsers);
+    console.log('disabled', disabledUsers);
     return (
       <section >
         {!!users.length && users.map((user) => (
@@ -42,8 +44,10 @@ class Users extends Component {
 }
 
 const mapState = ({users, user}) => ({
+  user,
   users,
-  user
+  enabledUsers: users.filter((elem) => !elem.isDisabled),
+  disabledUsers: users.filter((elem) => elem.isDisabled),
 });
 const mapDispatch = (dispatch) => ({
   getUsers() {
