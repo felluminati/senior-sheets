@@ -12,7 +12,8 @@ class UserCard extends Component {
     this.setState({visible: !this.state.visible});
   }
   render() {
-    const {user, isGod, toggleAdmin, toggleDisabled, toggleGodPowers} = this.props;
+    console.log(this.props.userCohort);
+    const {user, cohorts, userCohort, isGod, toggleAdmin, toggleDisabled, toggleGodPowers} = this.props;
     return (
       <section key={user.id} className={styles.container}>
       <article className={styles.email}>
@@ -35,7 +36,7 @@ class UserCard extends Component {
                 onChange={() => toggleDisabled(user.id)}
               />
               </article>
-        }       { isGod &&
+          } { isGod &&
               <article className={styles.toggle}>
               <span className={styles.label}>IsGod:</span>
               <Switch
@@ -49,11 +50,11 @@ class UserCard extends Component {
               <article className={styles.toggle}>
                 <span className={styles.label}>Cohort:</span>
               <select className={styles.input}>
-                <option>1</option>
-                <option>2</option>
+                <option value="">--</option>
+                {cohorts.map((cohort) => <option key={cohort.id} value={cohort.name}>{cohort.name}</option>)}
               </select>
               </article>
-            ) : <span>{user.cohort}</span>
+            ) : <span>{user.cohortId}</span>
           }
           </section>
         )}
@@ -62,8 +63,10 @@ class UserCard extends Component {
   }
 }
 
-const mapState = ({user}) => ({
-  isGod: user.isGod
+const mapState = ({user, cohorts}) => ({
+  isGod: user.isGod,
+  userCohort: user,
+  cohorts
 });
 const mapDispatch = (dispatch) => ({
   toggleAdmin(id) {
