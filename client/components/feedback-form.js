@@ -26,7 +26,7 @@ class FeedbackForm extends Component {
     this.setState({ comments: event.target.value });
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { teamwork, morale, date, comments } = this.state;
     if (this.props.name === 'edit'){
