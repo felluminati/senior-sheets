@@ -39,11 +39,9 @@ export const changeDisabled = (id) => async (dispatch) => {
 
 export const changeGodPowers = (id) => async (dispatch) => {
   try {
-    console.log('hiiii');
     const {data} = await axios.put(`/api/users/${id}/god`);
     dispatch(toggleGod(data));
   } catch (err) {
-    console.log('whateverrr');
     console.error(err);
   }
 };

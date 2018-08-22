@@ -12,7 +12,6 @@ class UserCard extends Component {
     this.setState({visible: !this.state.visible});
   }
   render() {
-    console.log(this.props.userCohort);
     const {user, cohorts, userCohort, isGod, toggleAdmin, toggleDisabled, toggleGodPowers} = this.props;
     return (
       <section key={user.id} className={styles.container}>
@@ -54,7 +53,7 @@ class UserCard extends Component {
                 {cohorts.map((cohort) => <option key={cohort.id} value={cohort.name}>{cohort.name}</option>)}
               </select>
               </article>
-            ) : <span>{user.cohortId}</span>
+            ) : <span>{}</span>
           }
           </section>
         )}
@@ -65,7 +64,7 @@ class UserCard extends Component {
 
 const mapState = ({user, cohorts}) => ({
   isGod: user.isGod,
-  userCohort: user,
+  userCohort: user.cohort,
   cohorts
 });
 const mapDispatch = (dispatch) => ({
