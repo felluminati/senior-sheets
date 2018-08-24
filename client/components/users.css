@@ -9,6 +9,7 @@
 }
 .toggle__container {
   display: flex;
+  text-align: center;
   justify-content: space-between;
   flex-wrap: nowrap;
 }

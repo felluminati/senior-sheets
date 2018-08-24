@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User} = require('../db/models');
+const {User, Cohort} = require('../db/models');
 const {isGod} = require('../gateways');
 module.exports = router;
 
@@ -41,6 +41,17 @@ router.put('/:id/god', isGod(), async (req, res, next) => {
     const user = await User.findById(req.params.id);
     await user.update({isGod: !user.isGod});
     res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/setCohort', isGod(), async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id, {include: ['cohort']});
+    const cohort = await Cohort.findById(req.body.cohortId);
+    const updatedUser = await user.setCohort(cohort);
+    res.json(updatedUser);
   } catch (err) {
     next(err);
   }
