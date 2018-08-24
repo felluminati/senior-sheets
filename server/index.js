@@ -14,15 +14,12 @@ const {isAdmin} = require('./gateways');
 const socketio = require('socket.io');
 module.exports = app;
 
-// This is a global Mocha hook, used for resource cleanup.
-// Otherwise, Mocha v4+ never quits after tests.
 if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions());
 }
 
 if (process.env.NODE_ENV !== 'production') require('../secrets');
 
-// passport registration
 passport.serializeUser((user, done) => done(null, user.id));
 
 passport.deserializeUser(async (id, done) => {
@@ -35,17 +32,13 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const createApp = () => {
-  // logging middleware
   app.use(morgan('dev'));
 
-  // body parsing middleware
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
 
-  // compression middleware
   app.use(compression());
 
-  // session middleware with passport
   app.use(
     session({
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
@@ -57,14 +50,13 @@ const createApp = () => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // auth and api routes
   app.use('/auth', require('./auth'));
   app.use('/api', isAdmin(), require('./api'));
 
-  // static file-serving middleware
+
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
-  // any remaining requests with an extension (.js, .css, etc.) send 404
+
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
       const err = new Error('Not found');
@@ -75,12 +67,12 @@ const createApp = () => {
     }
   });
 
-  // sends index.html
+
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   });
 
-  // error handling endware
+
   app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== 'test'){
       console.error(err);
@@ -91,11 +83,9 @@ const createApp = () => {
 };
 
 const startListening = () => {
-  // start listening (and create a 'server' object representing our server)
   const server = app.listen(PORT, () =>
     console.log(`Mixing it up on port ${PORT}`));
 
-  // set up our socket control center
   const io = socketio(server);
   require('./socket')(io);
 };

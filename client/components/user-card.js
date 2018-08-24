@@ -1,23 +1,21 @@
 import React, {Component} from 'react';
 import styles from './users.css';
 import { connect } from 'react-redux';
-import {changeAdmin, changeDisabled, changeGodPowers} from '../store';
+import {changeAdmin, changeDisabled, changeGodPowers, setCohort} from '../store';
 import Switch from 'react-switch';
 
 class UserCard extends Component {
   state = {
-    visible: false
+    visible: false,
   }
   toggleVisibility = () => {
     this.setState({visible: !this.state.visible});
   }
   render() {
-    const {user, cohorts, userCohort, isGod, toggleAdmin, toggleDisabled, toggleGodPowers} = this.props;
+    const {user, cohorts, isGod, toggleAdmin, toggleDisabled, toggleGodPowers, changeCohort} = this.props;
     return (
       <section key={user.id} className={styles.container}>
-      <article className={styles.email}>
-      <h3 onClick={this.toggleVisibility}>{user.email}</h3>
-      </article>
+        <h3 onClick={this.toggleVisibility} className={styles.email}>{user.email}</h3>
         { this.state.visible && (
           <section className={styles.toggle__container}>
           <article className={styles.toggle}>
@@ -44,17 +42,20 @@ class UserCard extends Component {
               />
               </article>
           }
-          {
-            isGod ? (
-              <article className={styles.toggle}>
-                <span className={styles.label}>Cohort:</span>
-              <select className={styles.input}>
+            <article className={styles.toggle}>
+              <span className={styles.label}>Cohort:</span>
+
+            { isGod ? (
+              <select className={styles.input} value={user.cohort.id || ''}onChange={(event) => changeCohort(user.id, event.target.value)}>
                 <option value="">--</option>
-                {cohorts.map((cohort) => <option key={cohort.id} value={cohort.name}>{cohort.name}</option>)}
+                {cohorts.map((cohort) => <option key={cohort.id} value={cohort.id}>{cohort.name}</option>)}
               </select>
-              </article>
-            ) : <span>{}</span>
-          }
+            ) : (
+              <span className={styles.cohortName}>
+                {user.cohort.name ? user.cohort.name : 'None'}
+              </span>
+            )}
+            </article>
           </section>
         )}
       </section>
@@ -64,7 +65,6 @@ class UserCard extends Component {
 
 const mapState = ({user, cohorts}) => ({
   isGod: user.isGod,
-  userCohort: user.cohort,
   cohorts
 });
 const mapDispatch = (dispatch) => ({
@@ -76,6 +76,9 @@ const mapDispatch = (dispatch) => ({
   },
   toggleGodPowers(id) {
     dispatch(changeGodPowers(id));
+  },
+  changeCohort(id, cohortId) {
+    dispatch(setCohort(id, cohortId));
   }
 });
 
