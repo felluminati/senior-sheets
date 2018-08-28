@@ -62,25 +62,13 @@ export default function (state = [], action) {
     case GET_USERS:
       return action.users;
     case TOGGLE_ADMIN:
-      return state.map((user) => {
-        if (user.id === action.user.id) return action.user;
-        else return user;
-      });
+      return state.map((user) => (user.id === action.user.id ? action.user : user));
     case TOGGLE_DISABLED:
-    return state.map((user) => {
-      if (user.id === action.user.id) return action.user;
-      else return user;
-    });
+      return state.map((user) => (user.id === action.user.id ? action.user : user));
     case TOGGLE_GOD:
-      return state.map((user) => {
-        if (user.id === action.user.id) return action.user;
-        else return user;
-      });
+      return state.map((user) => (user.id === action.user.id ? action.user : user));
     case SET_COHORT:
-      return state.map((user) => {
-        if (user.id === action.user.id) return action.user;
-        else return user;
-      });
+      return state.map((user) => (user.id === action.user.id ? action.user : user));
     default:
       return state;
   }
