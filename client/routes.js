@@ -11,7 +11,7 @@ import styles from './components/index.css';
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    if (this.props.isLoggedIn) this.props.loadInitialData();
   }
 
   render() {
@@ -53,9 +53,10 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => ({
-  isLoggedIn: !!state.user.id,
-  isAdmin: !!state.user.isAdmin && !state.user.isDisabled
+const mapState = ({user, cohorts}) => ({
+  isLoggedIn: !!user.id,
+  isAdmin: !!user.isAdmin && !user.isDisabled,
+  cohorts
 });
 
 const mapDispatch = dispatch => ({

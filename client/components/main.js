@@ -10,7 +10,8 @@ class Main extends Component {
     project: '',
   }
   componentDidMount() {
-    if (!this.props.cohorts.length) this.props.loadInitialData();
+    console.log('hiiii', this.props);
+    if (!this.props.cohorts.length && this.props.user.id) this.props.loadInitialData();
   }
 
   handleSelect = (data, selector) => {
@@ -42,7 +43,7 @@ class Main extends Component {
   }
 }
 
-const mapState = ({cohorts}) => ({cohorts});
+const mapState = ({cohorts, user}) => ({cohorts, user});
 const mapDispatch = (dispatch) => ({
   loadInitialData() {
     dispatch(fetchCohorts());

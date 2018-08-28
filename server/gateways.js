@@ -1,7 +1,7 @@
 const {User} = require('./db/models');
 
 module.exports = {
-  isAdmin: () => async (req, res, next) => {
+  isAdmin: async (req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
       return next();
     }
@@ -11,7 +11,7 @@ module.exports = {
         next();
       }
       else {
-        const err = new Error('You do not have admin access');
+        const err = new Error('You do not have admin access!');
         err.status = 403;
         next(err);
       }
@@ -19,7 +19,7 @@ module.exports = {
       next(err);
     }
   },
-  isGod: () => async (req, res, next) => {
+  isGod: async (req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
       return next();
     }
@@ -29,7 +29,7 @@ module.exports = {
         next();
       }
       else {
-        const err = new Error('You do not have god access');
+        const err = new Error('You do not have god access!');
         err.status = 403;
         next(err);
       }
