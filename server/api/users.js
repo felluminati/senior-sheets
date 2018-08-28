@@ -26,7 +26,7 @@ router.put('/:id/admin', async (req, res, next) => {
   }
 });
 
-router.put('/:id/disable', isGod(), async (req, res, next) => {
+router.put('/:id/disable', isGod, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     await user.update({isDisabled: !user.isDisabled});
@@ -36,7 +36,7 @@ router.put('/:id/disable', isGod(), async (req, res, next) => {
   }
 });
 
-router.put('/:id/god', isGod(), async (req, res, next) => {
+router.put('/:id/god', isGod, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     await user.update({isGod: !user.isGod});
@@ -46,7 +46,7 @@ router.put('/:id/god', isGod(), async (req, res, next) => {
   }
 });
 
-router.put('/:id/setCohort', isGod(), async (req, res, next) => {
+router.put('/:id/setCohort', isGod, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id, {include: ['cohort']});
     const cohort = await Cohort.findById(req.body.cohortId);
