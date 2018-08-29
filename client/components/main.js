@@ -10,7 +10,6 @@ class Main extends Component {
     project: '',
   }
   componentDidMount() {
-    console.log('hiiii', this.props);
     if (!this.props.cohorts.length && this.props.user.id) this.props.loadInitialData();
   }
 
