@@ -46,7 +46,7 @@ class UserCard extends Component {
               <span className={styles.label}>Cohort:</span>
 
             { isGod ? (
-              <select className={styles.input} value={user.cohort.id || ''}onChange={(event) => changeCohort(user.id, event.target.value)}>
+              <select className={styles.input} value={user.cohort ? user.cohort.id : ''}onChange={(event) => changeCohort(user.id, event.target.value)}>
                 <option value="">--</option>
                 {cohorts.map((cohort) => <option key={cohort.id} value={cohort.id}>{cohort.name}</option>)}
               </select>
