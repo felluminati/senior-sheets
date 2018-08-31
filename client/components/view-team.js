@@ -24,6 +24,7 @@ class ViewTeam extends Component {
     this.project = this.props.match.params.project;
     this.cohort = this.props.match.params.cohort;
     this.teamInfo = {teamId: this.teamId, project: this.project, cohort: this.cohort};
+    if (this.cohort === this.props.user.cohort.id) return <h1>You can't look at your own cohort, ok!</h1>;
     return (
       <div className={styles.view_team_container}>
         <div>
@@ -53,12 +54,13 @@ class ViewTeam extends Component {
   }
 }
 
-const mapState = ({teams, selectedTeam, teamFeedback, cohorts}) => {
+const mapState = ({teams, selectedTeam, teamFeedback, cohorts, user}) => {
   return {
     teams,
     teamFeedback: teamFeedback.sort((a, b) => new Date(b.date) - new Date(a.date)),
     cohorts,
-    selectedTeam
+    selectedTeam,
+    user
   };
 };
 

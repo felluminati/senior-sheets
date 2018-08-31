@@ -18,7 +18,8 @@ router.get('/', async (req, res, next) => {
 
 router.put('/:id/admin', async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id, {attributes: ['id', 'email', 'isAdmin', 'isGod', 'isDisabled'],
+      include: ['cohort']});
     await user.update({isAdmin: !user.isAdmin});
     res.json(user);
   } catch (err) {
@@ -28,7 +29,8 @@ router.put('/:id/admin', async (req, res, next) => {
 
 router.put('/:id/disable', isGod, async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id, {attributes: ['id', 'email', 'isAdmin', 'isGod', 'isDisabled'],
+      include: ['cohort']});
     await user.update({isDisabled: !user.isDisabled});
     res.json(user);
   } catch (err) {
@@ -38,7 +40,8 @@ router.put('/:id/disable', isGod, async (req, res, next) => {
 
 router.put('/:id/god', isGod, async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id, {attributes: ['id', 'email', 'isAdmin', 'isGod', 'isDisabled'],
+        include: ['cohort']});
     await user.update({isGod: !user.isGod});
     res.json(user);
   } catch (err) {
@@ -48,7 +51,8 @@ router.put('/:id/god', isGod, async (req, res, next) => {
 
 router.put('/:id/setCohort', isGod, async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id, {include: ['cohort']});
+    const user = await User.findById(req.params.id, {attributes: ['id', 'email', 'isAdmin', 'isGod', 'isDisabled'],
+      include: ['cohort']});
     const cohort = await Cohort.findById(req.body.cohortId);
     const updatedUser = await user.setCohort(cohort);
     res.json(updatedUser);

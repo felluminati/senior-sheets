@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {selectCohort} from '../../store';
 import {AddCohort} from '../index';
 import {SelectButtons, Title} from '../elements';
 import styles from './index.css';
@@ -31,7 +30,7 @@ class SelectCohort extends Component {
   }
 
   render () {
-    const {cohorts} = this.props;
+    const {cohorts, user} = this.props;
     return (
       <section className={styles.choiceWrapper}>
         <Title>Select Cohort</Title>
@@ -42,7 +41,7 @@ class SelectCohort extends Component {
               <option disabled value="">Select a Cohort</option>
               {
                 cohorts.length ? cohorts.map((cohort) => {
-                if (cohort.name !== 'staff') {
+                if (cohort.name !== 'staff' && cohort.name !== user.cohort.name) {
                   return <option key={cohort.id} value={cohort.id}>{cohort.name}</option>;
                 }
                 })
@@ -60,8 +59,9 @@ class SelectCohort extends Component {
   }
 }
 
-const mapState = ({cohorts}) => ({
+const mapState = ({cohorts, user}) => ({
   cohorts,
+  user
 });
 
 export default connect(mapState, null)(SelectCohort);
