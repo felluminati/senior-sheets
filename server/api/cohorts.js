@@ -6,10 +6,7 @@ module.exports = router;
 
 router.get('/', async (req, res, next) => {
   try {
-    const id = req.user.cohort.id || 0;
-    const cohorts = await Cohort.findAll({where: {id: {
-        [Op.ne]: id
-      }}});
+    const cohorts = await Cohort.findAll();
     res.json(cohorts);
   }
   catch (err) {

@@ -7,9 +7,14 @@ import Switch from 'react-switch';
 class UserCard extends Component {
   state = {
     visible: false,
+    cohortId: this.props.user.cohort.id || ''
   }
   toggleVisibility = () => {
     this.setState({visible: !this.state.visible});
+  }
+  handleSelect = (id, cohortId) => {
+    this.setState({cohortId});
+    this.props.changeCohort(id, cohortId);
   }
   render() {
     const {user, cohorts, isGod, toggleAdmin, toggleDisabled, toggleGodPowers, changeCohort} = this.props;
@@ -46,13 +51,13 @@ class UserCard extends Component {
               <span className={styles.label}>Cohort:</span>
 
             { isGod ? (
-              <select className={styles.input} value={user.cohort ? user.cohort.id : ''}onChange={(event) => changeCohort(user.id, event.target.value)}>
+              <select className={styles.input} value={this.state.cohortId} onChange={(event) => this.handleSelect(user.id, event.target.value)}>
                 <option value="">--</option>
                 {cohorts.map((cohort) => <option key={cohort.id} value={cohort.id}>{cohort.name}</option>)}
               </select>
             ) : (
               <span className={styles.cohortName}>
-                {user.cohort.name ? user.cohort.name : 'None'}
+                {user.cohort ? user.cohort.name : 'None'}
               </span>
             )}
             </article>
@@ -78,7 +83,7 @@ const mapDispatch = (dispatch) => ({
     dispatch(changeGodPowers(id));
   },
   changeCohort(id, cohortId) {
-    dispatch(setCohort(id, cohortId));
+    dispatch(setCohort(id, +cohortId));
   }
 });
 
