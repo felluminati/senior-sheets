@@ -70,6 +70,7 @@ class UserCard extends Component {
 
 const mapState = ({user, cohorts}) => ({
   isGod: user.isGod,
+  user,
   cohorts
 });
 const mapDispatch = (dispatch) => ({
