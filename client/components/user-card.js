@@ -7,7 +7,7 @@ import Switch from 'react-switch';
 class UserCard extends Component {
   state = {
     visible: false,
-    cohortId: this.props.user.cohort.id || ''
+    cohortId: this.props.user.cohort ? this.props.user.cohort.id || ''
   }
   toggleVisibility = () => {
     this.setState({visible: !this.state.visible});
